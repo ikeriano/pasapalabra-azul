@@ -201,7 +201,7 @@ function Player({
     if (best !== near.current) { near.current = best; onNear(best) }
 
     const portal = def().portal
-    const pNear = Math.hypot(pose.x - portal.x, pose.z - portal.z) < 2.4
+    const pNear = Math.hypot(pose.x - portal.x, pose.z - portal.z) < 3.8
     if (pNear !== portalNearRef.current) { portalNearRef.current = pNear; onPortalNear(pNear) }
   })
   return (
@@ -298,6 +298,7 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
   const [hint, setHint] = useState(true)
   const [showFocos, setShowFocos] = useState(false)
   const [showTravel, setShowTravel] = useState(false)
+  const travelDismissed = useRef(false)
   const [setId, setSetId] = useState<SetId>('pasapalabra')
   const [plano, setPlano] = useState<Plano | null>(null)
   const [fade, setFade] = useState(false)
@@ -312,6 +313,12 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
   useEffect(() => { audio.setScene(gameOpen ? 'game' : 'menu') }, [gameOpen])
   useEffect(() => { const t = setTimeout(() => setHint(false), 6000); return () => clearTimeout(t) }, [])
   useEffect(() => { setActiveSetId(setId) }, [setId])
+  useEffect(() => {
+    if (!portalNear) { travelDismissed.current = false; return }
+    if (portalNear && !showTravel && !gameOpen && !travelDismissed.current) {
+      setShowTravel(true)
+    }
+  }, [portalNear, showTravel, gameOpen])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -454,14 +461,24 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
             activeId={plano?.id ?? null}
             onPick={(pl) => { setPlano(pl); setMode('tercera') }}
             onLibre={() => setPlano(null)}
+            onPortal={() => {
+              const pr = setDef.portal
+              const pin: Plano = {
+                id: 'puerta', label: 'Puerta',
+                pos: [pr.x + Math.sin(pr.yaw ?? 0) * 6, 4.2, pr.z + Math.cos(pr.yaw ?? 0) * 6],
+                look: [pr.x, 2.4, pr.z],
+                accent: '#5ec8ff'
+              }
+              setPlano(pin); setMode('tercera')
+            }}
           />
           {hint && !near && !portalNear && (
-            <div className="plato-hint">Joystick · salto · puerta para viajar · planos abajo</div>
+            <div className="plato-hint">Busca la puerta VIAJAR brillante · planos abajo · salto</div>
           )}
         </div>
       )}
       {showFocos && setId === 'pasapalabra' && <FocosPanel onClose={() => setShowFocos(false)} />}
-      {showTravel && <TravelPicker current={setId} onPick={travelTo} onClose={() => setShowTravel(false)} />}
+      {showTravel && <TravelPicker current={setId} onPick={travelTo} onClose={() => { travelDismissed.current = true; setShowTravel(false) }} />}
       {fade && <div className="plato-fade" />}
       {overlay && (
         <div className="plato-overlay">

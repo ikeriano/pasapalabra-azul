@@ -1,12 +1,13 @@
 import type { Plano } from './world'
 
 export function PlanoBar({
-  planos, activeId, onPick, onLibre
+  planos, activeId, onPick, onLibre, onPortal
 }: {
   planos: Plano[]
   activeId: string | null
   onPick: (p: Plano) => void
   onLibre: () => void
+  onPortal?: () => void
 }) {
   return (
     <div className="plano-bar" aria-label="Planos de cámara">
@@ -14,6 +15,12 @@ export function PlanoBar({
         <span className="plano-ico">🧍</span>
         <span className="plano-lbl">Libre</span>
       </button>
+      {onPortal && (
+        <button type="button" className="plano-thumb portal-pin" onClick={onPortal} aria-label="Ir a la puerta VIAJAR">
+          <span className="plano-ico">🚪</span>
+          <span className="plano-lbl">Puerta</span>
+        </button>
+      )}
       {planos.map((p) => (
         <button
           key={p.id}

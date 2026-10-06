@@ -171,6 +171,19 @@ export function pasapalabraWordmarkTexture() {
 }
 
 /** Soft cyan glow disc behind the letter sphere. */
+
+export function ruedaWordmarkTexture() {
+  const W = 1024, H = 256
+  const [c, g] = canvas(W, H)
+  g.clearRect(0, 0, W, H)
+  g.font = f(LOGO_FONT, 110)
+  g.textAlign = 'center'; g.textBaseline = 'middle'
+  g.fillStyle = '#ffffff'
+  g.shadowColor = 'rgba(160,220,255,.95)'; g.shadowBlur = 18
+  g.fillText('Rueda la letra', W / 2, H * 0.52)
+  return tex(c)
+}
+
 export function sphereGlowTexture() {
   const N = 512
   const [c, g] = canvas(N, N)

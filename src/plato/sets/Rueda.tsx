@@ -1,19 +1,15 @@
-import { useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useMemo } from 'react'
 import * as THREE from 'three'
-import { logoScreenTex } from './textures'
+import { LetterGlobeOutward } from '../Set'
+import * as T from '../textures'
 const add = THREE.AdditiveBlending
 
 export function RuedaSet() {
-  const logo = useMemo(() => logoScreenTex('RUEDA', 'LA LETRA'), [])
-  const spin = useRef<THREE.Group>(null)
-  useFrame((_, dt) => { if (spin.current) spin.current.rotation.y += dt * 0.2 })
-
   const floorLetters = useMemo(() => {
     const c = document.createElement('canvas'); c.width = 1024; c.height = 1024
     const g = c.getContext('2d')!
     g.fillStyle = '#0a1535'; g.fillRect(0, 0, 1024, 1024)
-    g.fillStyle = 'rgba(180,210,255,.35)'
+    g.fillStyle = 'rgba(180,210,255,.38)'
     g.font = "900 90px 'Nunito', sans-serif"
     const chars = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'
     for (let i = 0; i < 40; i++) {
@@ -27,6 +23,9 @@ export function RuedaSet() {
     t.colorSpace = THREE.SRGBColorSpace
     return t
   }, [])
+  const bg = useMemo(() => T.ledWallTexture(), [])
+  const word = useMemo(() => T.ruedaWordmarkTexture(), [])
+  const glow = useMemo(() => T.sphereGlowTexture(), [])
 
   return (
     <group>
@@ -39,26 +38,24 @@ export function RuedaSet() {
         <meshLambertMaterial color="#e8eef8" emissive="#3a4d70" emissiveIntensity={0.25} />
       </mesh>
 
-      {/* LED wall with letter sphere */}
-      <group position={[0, 3.2, -10.5]}>
-        <mesh><boxGeometry args={[10, 5.5, 0.2]} /><meshBasicMaterial color="#0a2a6a" toneMapped={false} /></mesh>
-        <mesh position={[0, -0.3, 0.12]}><planeGeometry args={[7, 1.6]} /><meshBasicMaterial map={logo} toneMapped={false} /></mesh>
-        <group ref={spin} position={[0, 0.9, 0.4]}>
-          {Array.from({ length: 48 }).map((_, i) => {
-            const y = 1 - (i / 47) * 2
-            const r = Math.sqrt(Math.max(0, 1 - y * y))
-            const th = i * 2.4
-            const x = Math.cos(th) * r * 1.3
-            const z = Math.sin(th) * r * 1.3
-            return (
-              <mesh key={i} position={[x, y * 1.3, z]}>
-                <boxGeometry args={[0.22, 0.22, 0.05]} />
-                <meshBasicMaterial color="#ffffff" toneMapped={false} />
-              </mesh>
-            )
-          })}
-          <mesh><sphereGeometry args={[1.05, 16, 12]} /><meshBasicMaterial color="#4aa8ff" transparent opacity={0.25} /></mesh>
+      {/* LED: rotating letter sphere + FIXED wordmark */}
+      <group position={[0, 3.15, -10.4]}>
+        <mesh position={[0, 0, -0.06]}><boxGeometry args={[10.58, 5.58, 0.1]} /><meshLambertMaterial color="#0b1430" /></mesh>
+        <mesh><planeGeometry args={[10.4, 5.4]} /><meshBasicMaterial map={bg} toneMapped={false} /></mesh>
+        <sprite position={[0.05, 0.1, 0.02]} scale={[5.0, 5.0, 1]}>
+          <spriteMaterial map={glow} transparent depthWrite={false} blending={add} toneMapped={false} />
+        </sprite>
+        <group position={[0.05, 0.1, 0.35]}>
+          <LetterGlobeOutward radius={1.85} />
         </group>
+        <mesh position={[0.05, 0.2, 0.72]}>
+          <planeGeometry args={[7.4, 1.85]} />
+          <meshBasicMaterial map={word} transparent depthWrite={false} toneMapped={false} />
+        </mesh>
+        <mesh position={[0, 0, -0.12]}>
+          <planeGeometry args={[10.4 * 1.3, 5.4 * 1.25]} />
+          <meshBasicMaterial color="#5fb8ff" transparent opacity={0.16} blending={add} depthWrite={false} />
+        </mesh>
       </group>
 
       {/* orange side discs */}
@@ -72,10 +69,6 @@ export function RuedaSet() {
       <mesh position={[0, 10, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <circleGeometry args={[14, 32]} />
         <meshBasicMaterial color="#050a1e" side={THREE.DoubleSide} />
-      </mesh>
-      <mesh position={[0, 4, 0]}>
-        <coneGeometry args={[1.2, 8, 12, 1, true]} />
-        <meshBasicMaterial color="#7fb8ff" transparent opacity={0.06} blending={add} depthWrite={false} side={THREE.DoubleSide} />
       </mesh>
     </group>
   )

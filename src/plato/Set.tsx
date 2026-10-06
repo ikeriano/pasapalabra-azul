@@ -173,7 +173,7 @@ function MainLedScreen() {
 }
 
 /** Letter globe whose glyph planes face outward from the centre (readable on the front as it yaws). */
-function LetterGlobeOutward({ radius = 1.85 }: { radius?: number }) {
+export function LetterGlobeOutward({ radius = 1.85 }: { radius?: number }) {
   const group = useRef<THREE.Group>(null)
   const letters = useMemo(() => {
     const out: { ch: string; pos: [number, number, number]; quat: THREE.Quaternion; s: number }[] = []

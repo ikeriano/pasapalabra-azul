@@ -50,14 +50,15 @@ export const SETS: Record<SetId, SetDef> = {
   pasapalabra: {
     id: 'pasapalabra', label: 'Pasapalabra', short: 'PP',
     spawn: { x: 0, z: 10.4, yaw: 0 },
-    portal: { x: 11.2, z: 8.2, yaw: -0.9 },
+    portal: { x: -4.2, z: -7.0, yaw: 0.15 },  // clear floor in front of LED
     fog: '#071233', bg: '#050a1e',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 22, 2], look: [0, 0, 0], accent: '#3a9dff' },
       { id: 'frente', label: 'Frente', pos: [0, 4.5, 16], look: [0, 1.5, 0], accent: '#5fb8ff' },
       { id: 'lado', label: 'Lado', pos: [14, 5, 4], look: [0, 1.2, 0], accent: '#ff8a2a' },
       { id: 'gradas', label: 'Gradas', pos: [10, 6, -4], look: [0, 1, 2], accent: '#9fd0ff' },
-      { id: 'led', label: 'LED', pos: [-2, 3.2, 2], look: [-3.6, 3, -10], accent: '#7fd0ff' }
+      { id: 'led', label: 'LED', pos: [-2, 3.2, 2], look: [-3.6, 3, -10], accent: '#7fd0ff' },
+      { id: 'puerta', label: 'Puerta', pos: [2, 4.5, 2], look: [-4.2, 2.2, -7], accent: '#5ec8ff' }
     ],
     floorHeight(x, z) {
       const r = Math.hypot(x, z)
@@ -90,7 +91,7 @@ export const SETS: Record<SetId, SetDef> = {
   rueda: {
     id: 'rueda', label: 'Rueda la letra', short: 'RL',
     spawn: { x: 0, z: 8, yaw: 0 },
-    portal: { x: 9.5, z: 7.5, yaw: -0.7 },
+    portal: { x: 6.5, z: 8.5, yaw: -0.5 },
     fog: '#071233', bg: '#050a1e',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 18, 1], look: [0, 0, 0], accent: '#ff8a2a' },
@@ -108,7 +109,7 @@ export const SETS: Record<SetId, SetDef> = {
   ahora: {
     id: 'ahora', label: 'Ahora Caigo', short: 'AC',
     spawn: { x: 0, z: 8.2, yaw: 0 },
-    portal: { x: -9.2, z: 8.5, yaw: 0.7 },
+    portal: { x: 0, z: 10.8, yaw: 3.14 },
     fog: '#06103a', bg: '#04081c',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 18, 1], look: [0, 0, 0], accent: '#ffcc00' },
@@ -134,7 +135,7 @@ export const SETS: Record<SetId, SetDef> = {
   cocina: {
     id: 'cocina', label: 'Cocina', short: 'CO',
     spawn: { x: 0, z: 5.5, yaw: 0 },
-    portal: { x: 6.8, z: 5.5, yaw: -1.2 },
+    portal: { x: 0, z: 7.2, yaw: 3.14 },
     fog: '#1a2030', bg: '#12161e',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 12, 1], look: [0, 0, 0], accent: '#1a6adf' },
@@ -158,7 +159,7 @@ export const SETS: Record<SetId, SetDef> = {
   abismo: {
     id: 'abismo', label: 'Acierta o el Abismo', short: 'AA',
     spawn: { x: 0, z: 7.5, yaw: 0 },
-    portal: { x: 9, z: 7.5, yaw: -0.7 },
+    portal: { x: 0, z: 10, yaw: 3.14 },
     fog: '#071440', bg: '#050c28',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 16, 1], look: [0, 0, 0], accent: '#ffcc00' },
@@ -176,7 +177,7 @@ export const SETS: Record<SetId, SetDef> = {
   boom: {
     id: 'boom', label: 'Boom', short: 'BO',
     spawn: { x: 0, z: 7, yaw: 0 },
-    portal: { x: -8.5, z: 7, yaw: 0.8 },
+    portal: { x: 0, z: 9.5, yaw: 3.14 },
     fog: '#1a0804', bg: '#0c0402',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 16, 1], look: [0, 0, 0], accent: '#ff6a1a' },
