@@ -1,0 +1,834 @@
+[
+ {
+  "id": "r1",
+  "name": "Rosco 1",
+  "entries": [
+   {
+    "letter": "A",
+    "type": "empieza",
+    "def": "Fruto seco de forma ovalada, ingrediente principal del turrón de Jijona.",
+    "answer": [
+     "ALMENDRA"
+    ]
+   },
+   {
+    "letter": "B",
+    "type": "empieza",
+    "def": "Embarcación pequeña, sin cubierta, que se mueve a remo, a vela o con motor.",
+    "answer": [
+     "BARCA",
+     "BOTE"
+    ]
+   },
+   {
+    "letter": "C",
+    "type": "empieza",
+    "def": "Ciudad andaluza famosa por su Mezquita y por sus patios llenos de flores en mayo.",
+    "answer": [
+     "CÓRDOBA"
+    ]
+   },
+   {
+    "letter": "D",
+    "type": "empieza",
+    "def": "Pieza cúbica con puntos del uno al seis que se lanza en muchos juegos de mesa.",
+    "answer": [
+     "DADO"
+    ]
+   },
+   {
+    "letter": "E",
+    "type": "empieza",
+    "def": "Mamífero de gran tamaño con trompa y colmillos de marfil.",
+    "answer": [
+     "ELEFANTE"
+    ]
+   },
+   {
+    "letter": "F",
+    "type": "empieza",
+    "def": "Postre de huevo, leche y azúcar cuajado al baño maría y cubierto de caramelo.",
+    "answer": [
+     "FLAN"
+    ]
+   },
+   {
+    "letter": "G",
+    "type": "empieza",
+    "def": "Sopa fría andaluza a base de tomate, pepino, pimiento, ajo y aceite de oliva.",
+    "answer": [
+     "GAZPACHO"
+    ]
+   },
+   {
+    "letter": "H",
+    "type": "empieza",
+    "def": "Insecto que vive en colonias y tiene fama de ser muy trabajador.",
+    "answer": [
+     "HORMIGA"
+    ]
+   },
+   {
+    "letter": "I",
+    "type": "empieza",
+    "def": "Porción de tierra rodeada de agua por todas partes.",
+    "answer": [
+     "ISLA"
+    ]
+   },
+   {
+    "letter": "J",
+    "type": "empieza",
+    "def": "Pata trasera del cerdo curada, uno de los productos más famosos de la gastronomía española.",
+    "answer": [
+     "JAMÓN"
+    ]
+   },
+   {
+    "letter": "L",
+    "type": "empieza",
+    "def": "Satélite natural de la Tierra.",
+    "answer": [
+     "LUNA"
+    ]
+   },
+   {
+    "letter": "M",
+    "type": "empieza",
+    "def": "Fruta grande de corteza verde o amarilla y pulpa dulce, muy refrescante en verano, que no es la sandía.",
+    "answer": [
+     "MELÓN"
+    ]
+   },
+   {
+    "letter": "N",
+    "type": "empieza",
+    "def": "Agua helada que cae del cielo en forma de copos blancos.",
+    "answer": [
+     "NIEVE"
+    ]
+   },
+   {
+    "letter": "Ñ",
+    "type": "contiene",
+    "def": "Obrero que construye paredes y tabiques trabajando con ladrillos y cemento.",
+    "answer": [
+     "ALBAÑIL"
+    ]
+   },
+   {
+    "letter": "O",
+    "type": "empieza",
+    "def": "Mamífero grande y peludo, de hocico alargado, que hiberna durante el invierno.",
+    "answer": [
+     "OSO"
+    ]
+   },
+   {
+    "letter": "P",
+    "type": "empieza",
+    "def": "Plato típico valenciano de arroz cocinado en una sartén ancha y plana.",
+    "answer": [
+     "PAELLA"
+    ]
+   },
+   {
+    "letter": "Q",
+    "type": "empieza",
+    "def": "Alimento que se obtiene cuajando la leche; el manchego es uno de los más conocidos.",
+    "answer": [
+     "QUESO"
+    ]
+   },
+   {
+    "letter": "R",
+    "type": "empieza",
+    "def": "Instrumento que mide el tiempo y que suele llevarse en la muñeca.",
+    "answer": [
+     "RELOJ"
+    ]
+   },
+   {
+    "letter": "S",
+    "type": "empieza",
+    "def": "Estrella alrededor de la cual gira la Tierra.",
+    "answer": [
+     "SOL"
+    ]
+   },
+   {
+    "letter": "T",
+    "type": "empieza",
+    "def": "Plato español de huevo batido y patatas cuajado en la sartén.",
+    "answer": [
+     "TORTILLA"
+    ]
+   },
+   {
+    "letter": "U",
+    "type": "empieza",
+    "def": "Fruto de la vid que crece en racimos.",
+    "answer": [
+     "UVA"
+    ]
+   },
+   {
+    "letter": "V",
+    "type": "empieza",
+    "def": "Instrumento de cuerda que se toca con un arco y se apoya entre el hombro y la barbilla.",
+    "answer": [
+     "VIOLÍN"
+    ]
+   },
+   {
+    "letter": "X",
+    "type": "contiene",
+    "def": "Coche con conductor que se alquila para llevar pasajeros a cambio de dinero.",
+    "answer": [
+     "TAXI"
+    ]
+   },
+   {
+    "letter": "Y",
+    "type": "empieza",
+    "def": "Parte amarilla del huevo.",
+    "answer": [
+     "YEMA"
+    ]
+   },
+   {
+    "letter": "Z",
+    "type": "empieza",
+    "def": "Calzado que cubre el pie, normalmente de piel y con la suela dura.",
+    "answer": [
+     "ZAPATO"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "r2",
+  "name": "Rosco 2",
+  "entries": [
+   {
+    "letter": "A",
+    "type": "empieza",
+    "def": "Ave rapaz de gran tamaño y vista muy aguda, símbolo de fuerza en muchos escudos.",
+    "answer": [
+     "ÁGUILA"
+    ]
+   },
+   {
+    "letter": "B",
+    "type": "empieza",
+    "def": "Recipiente de vidrio o plástico, de cuello estrecho, que sirve para contener líquidos.",
+    "answer": [
+     "BOTELLA"
+    ]
+   },
+   {
+    "letter": "C",
+    "type": "empieza",
+    "def": "Habitación de la casa donde se preparan los alimentos.",
+    "answer": [
+     "COCINA"
+    ]
+   },
+   {
+    "letter": "D",
+    "type": "empieza",
+    "def": "Animal fabuloso con forma de reptil gigante, alas y que echa fuego por la boca.",
+    "answer": [
+     "DRAGÓN"
+    ]
+   },
+   {
+    "letter": "E",
+    "type": "empieza",
+    "def": "Serie de peldaños que sirve para subir o bajar de un piso a otro.",
+    "answer": [
+     "ESCALERA"
+    ]
+   },
+   {
+    "letter": "F",
+    "type": "empieza",
+    "def": "Torre alta situada en la costa con una luz potente que guía a los barcos por la noche.",
+    "answer": [
+     "FARO"
+    ]
+   },
+   {
+    "letter": "G",
+    "type": "empieza",
+    "def": "Animal doméstico felino que maúlla y ronronea.",
+    "answer": [
+     "GATO"
+    ]
+   },
+   {
+    "letter": "H",
+    "type": "empieza",
+    "def": "Agua congelada en estado sólido.",
+    "answer": [
+     "HIELO"
+    ]
+   },
+   {
+    "letter": "I",
+    "type": "empieza",
+    "def": "Templo cristiano donde se celebra misa.",
+    "answer": [
+     "IGLESIA"
+    ]
+   },
+   {
+    "letter": "J",
+    "type": "empieza",
+    "def": "Mamífero africano con el cuello larguísimo y la piel con manchas.",
+    "answer": [
+     "JIRAFA"
+    ]
+   },
+   {
+    "letter": "L",
+    "type": "empieza",
+    "def": "Gran felino de melena abundante al que se conoce como el rey de la selva.",
+    "answer": [
+     "LEÓN"
+    ]
+   },
+   {
+    "letter": "M",
+    "type": "empieza",
+    "def": "Capital de España.",
+    "answer": [
+     "MADRID"
+    ]
+   },
+   {
+    "letter": "N",
+    "type": "empieza",
+    "def": "Fruta cítrica de color anaranjado, muy rica en vitamina C.",
+    "answer": [
+     "NARANJA"
+    ]
+   },
+   {
+    "letter": "Ñ",
+    "type": "contiene",
+    "def": "Gran elevación natural del terreno; el Everest es la más alta del mundo.",
+    "answer": [
+     "MONTAÑA"
+    ]
+   },
+   {
+    "letter": "O",
+    "type": "empieza",
+    "def": "Gran masa de agua salada que cubre la mayor parte de la superficie de la Tierra.",
+    "answer": [
+     "OCÉANO"
+    ]
+   },
+   {
+    "letter": "P",
+    "type": "empieza",
+    "def": "Ave que no vuela, de plumaje blanco y negro, que vive en las zonas heladas del hemisferio sur.",
+    "answer": [
+     "PINGÜINO"
+    ]
+   },
+   {
+    "letter": "Q",
+    "type": "contiene",
+    "def": "Terreno con árboles, césped y bancos dentro de una ciudad, donde se pasea y juegan los niños.",
+    "answer": [
+     "PARQUE"
+    ]
+   },
+   {
+    "letter": "R",
+    "type": "empieza",
+    "def": "Corriente de agua continua que desemboca en el mar, en un lago o en otra corriente.",
+    "answer": [
+     "RÍO"
+    ]
+   },
+   {
+    "letter": "S",
+    "type": "empieza",
+    "def": "Día de la semana que va después del viernes.",
+    "answer": [
+     "SÁBADO"
+    ]
+   },
+   {
+    "letter": "T",
+    "type": "empieza",
+    "def": "Medio de transporte formado por una locomotora y vagones que circula sobre raíles.",
+    "answer": [
+     "TREN"
+    ]
+   },
+   {
+    "letter": "U",
+    "type": "empieza",
+    "def": "Animal fantástico con forma de caballo blanco y un cuerno en la frente.",
+    "answer": [
+     "UNICORNIO"
+    ]
+   },
+   {
+    "letter": "V",
+    "type": "empieza",
+    "def": "Estación del año más calurosa, que en España empieza en junio.",
+    "answer": [
+     "VERANO"
+    ]
+   },
+   {
+    "letter": "X",
+    "type": "contiene",
+    "def": "Prueba que se hace para comprobar lo que sabe un alumno.",
+    "answer": [
+     "EXAMEN"
+    ]
+   },
+   {
+    "letter": "Y",
+    "type": "contiene",
+    "def": "Orilla del mar cubierta de arena donde la gente se baña y toma el sol.",
+    "answer": [
+     "PLAYA"
+    ]
+   },
+   {
+    "letter": "Z",
+    "type": "empieza",
+    "def": "Hortaliza alargada de color naranja que, según dicen, es buena para la vista.",
+    "answer": [
+     "ZANAHORIA"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "r3",
+  "name": "Rosco 3",
+  "entries": [
+   {
+    "letter": "A",
+    "type": "empieza",
+    "def": "Medio de transporte que vuela gracias a sus alas y sus motores.",
+    "answer": [
+     "AVIÓN"
+    ]
+   },
+   {
+    "letter": "B",
+    "type": "empieza",
+    "def": "Entidad donde se guarda el dinero y se piden préstamos.",
+    "answer": [
+     "BANCO"
+    ]
+   },
+   {
+    "letter": "C",
+    "type": "empieza",
+    "def": "Hortaliza formada por capas que hace llorar al cortarla.",
+    "answer": [
+     "CEBOLLA"
+    ]
+   },
+   {
+    "letter": "D",
+    "type": "empieza",
+    "def": "Mamífero marino muy inteligente que vive en grupo y salta sobre las olas.",
+    "answer": [
+     "DELFÍN"
+    ]
+   },
+   {
+    "letter": "E",
+    "type": "empieza",
+    "def": "Primer mes del año.",
+    "answer": [
+     "ENERO"
+    ]
+   },
+   {
+    "letter": "F",
+    "type": "empieza",
+    "def": "Deporte en el que dos equipos de once jugadores intentan meter un balón en la portería contraria.",
+    "answer": [
+     "FÚTBOL"
+    ]
+   },
+   {
+    "letter": "G",
+    "type": "empieza",
+    "def": "Instrumento musical de seis cuerdas, imprescindible en el flamenco.",
+    "answer": [
+     "GUITARRA"
+    ]
+   },
+   {
+    "letter": "H",
+    "type": "empieza",
+    "def": "Persona que tiene los mismos padres que otra.",
+    "answer": [
+     "HERMANO",
+     "HERMANA"
+    ]
+   },
+   {
+    "letter": "I",
+    "type": "empieza",
+    "def": "Persona que ha nacido en un territorio y es originaria de él; también se dice del pueblo nativo de América.",
+    "answer": [
+     "INDÍGENA"
+    ]
+   },
+   {
+    "letter": "J",
+    "type": "empieza",
+    "def": "Producto que hace espuma con el agua y sirve para lavarse las manos.",
+    "answer": [
+     "JABÓN"
+    ]
+   },
+   {
+    "letter": "L",
+    "type": "empieza",
+    "def": "Conjunto de hojas de papel impresas y encuadernadas que se lee.",
+    "answer": [
+     "LIBRO"
+    ]
+   },
+   {
+    "letter": "M",
+    "type": "empieza",
+    "def": "Insecto de alas de colores vistosos que antes fue oruga.",
+    "answer": [
+     "MARIPOSA"
+    ]
+   },
+   {
+    "letter": "N",
+    "type": "empieza",
+    "def": "Persona de corta edad que aún no ha llegado a la adolescencia.",
+    "answer": [
+     "NIÑO",
+     "NIÑA"
+    ]
+   },
+   {
+    "letter": "Ñ",
+    "type": "contiene",
+    "def": "Periodo de doce meses.",
+    "answer": [
+     "AÑO"
+    ]
+   },
+   {
+    "letter": "O",
+    "type": "empieza",
+    "def": "Órgano de la vista.",
+    "answer": [
+     "OJO"
+    ]
+   },
+   {
+    "letter": "P",
+    "type": "empieza",
+    "def": "Alimento hecho con harina, agua, sal y levadura, cocido al horno.",
+    "answer": [
+     "PAN"
+    ]
+   },
+   {
+    "letter": "Q",
+    "type": "empieza",
+    "def": "Número que va después del catorce.",
+    "answer": [
+     "QUINCE"
+    ]
+   },
+   {
+    "letter": "R",
+    "type": "empieza",
+    "def": "Flor con espinas en el tallo, símbolo del amor.",
+    "answer": [
+     "ROSA"
+    ]
+   },
+   {
+    "letter": "S",
+    "type": "empieza",
+    "def": "Asiento con respaldo y patas para una sola persona.",
+    "answer": [
+     "SILLA"
+    ]
+   },
+   {
+    "letter": "T",
+    "type": "empieza",
+    "def": "Reptil con caparazón que se mueve muy despacio.",
+    "answer": [
+     "TORTUGA"
+    ]
+   },
+   {
+    "letter": "U",
+    "type": "empieza",
+    "def": "Parte dura que crece en la punta de los dedos.",
+    "answer": [
+     "UÑA"
+    ]
+   },
+   {
+    "letter": "V",
+    "type": "empieza",
+    "def": "Aire en movimiento.",
+    "answer": [
+     "VIENTO"
+    ]
+   },
+   {
+    "letter": "X",
+    "type": "contiene",
+    "def": "Gas presente en el aire que necesitamos para respirar.",
+    "answer": [
+     "OXÍGENO"
+    ]
+   },
+   {
+    "letter": "Y",
+    "type": "contiene",
+    "def": "Monarca, jefe del Estado en una monarquía.",
+    "answer": [
+     "REY"
+    ]
+   },
+   {
+    "letter": "Z",
+    "type": "contiene",
+    "def": "Recipiente pequeño con asa que se usa para tomar café, té o leche.",
+    "answer": [
+     "TAZA"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "r4",
+  "name": "Rosco 4",
+  "entries": [
+   {
+    "letter": "A",
+    "type": "empieza",
+    "def": "Fruta tropical de pulpa verde y cremosa, ingrediente principal del guacamole.",
+    "answer": [
+     "AGUACATE"
+    ]
+   },
+   {
+    "letter": "B",
+    "type": "empieza",
+    "def": "Mamífero marino enorme; el animal más grande del planeta.",
+    "answer": [
+     "BALLENA"
+    ]
+   },
+   {
+    "letter": "C",
+    "type": "empieza",
+    "def": "Mamífero de orejas largas que se desplaza a saltos y vive en madrigueras.",
+    "answer": [
+     "CONEJO"
+    ]
+   },
+   {
+    "letter": "D",
+    "type": "empieza",
+    "def": "Cada una de las cinco partes en que terminan las manos y los pies.",
+    "answer": [
+     "DEDO"
+    ]
+   },
+   {
+    "letter": "E",
+    "type": "empieza",
+    "def": "Persona que cursa estudios en un colegio, instituto o universidad.",
+    "answer": [
+     "ESTUDIANTE",
+     "ESCOLAR"
+    ]
+   },
+   {
+    "letter": "F",
+    "type": "empieza",
+    "def": "Fruta roja y pequeña con las semillas por fuera; Huelva es su gran productora.",
+    "answer": [
+     "FRESA"
+    ]
+   },
+   {
+    "letter": "G",
+    "type": "empieza",
+    "def": "Prenda que se pone en la cabeza para abrigarla o protegerla del sol.",
+    "answer": [
+     "GORRO",
+     "GORRA"
+    ]
+   },
+   {
+    "letter": "H",
+    "type": "empieza",
+    "def": "Electrodoméstico cerrado en el que se asan o gratinan los alimentos.",
+    "answer": [
+     "HORNO"
+    ]
+   },
+   {
+    "letter": "I",
+    "type": "empieza",
+    "def": "Pieza de metal que atrae el hierro.",
+    "answer": [
+     "IMÁN"
+    ]
+   },
+   {
+    "letter": "J",
+    "type": "empieza",
+    "def": "Terreno donde se cultivan plantas y flores de adorno.",
+    "answer": [
+     "JARDÍN"
+    ]
+   },
+   {
+    "letter": "L",
+    "type": "empieza",
+    "def": "Fruta cítrica de color amarillo y sabor muy ácido.",
+    "answer": [
+     "LIMÓN"
+    ]
+   },
+   {
+    "letter": "M",
+    "type": "empieza",
+    "def": "Primate que trepa a los árboles con gran agilidad.",
+    "answer": [
+     "MONO"
+    ]
+   },
+   {
+    "letter": "N",
+    "type": "empieza",
+    "def": "Masa de pequeñas gotas de agua suspendida en el cielo.",
+    "answer": [
+     "NUBE"
+    ]
+   },
+   {
+    "letter": "Ñ",
+    "type": "contiene",
+    "def": "Mano cerrada.",
+    "answer": [
+     "PUÑO"
+    ]
+   },
+   {
+    "letter": "O",
+    "type": "empieza",
+    "def": "Décimo mes del año.",
+    "answer": [
+     "OCTUBRE"
+    ]
+   },
+   {
+    "letter": "P",
+    "type": "empieza",
+    "def": "Fruta alargada de piel amarilla; la de Canarias tiene motitas negras.",
+    "answer": [
+     "PLÁTANO"
+    ]
+   },
+   {
+    "letter": "Q",
+    "type": "contiene",
+    "def": "De tamaño reducido; lo contrario de grande.",
+    "answer": [
+     "PEQUEÑO"
+    ]
+   },
+   {
+    "letter": "R",
+    "type": "empieza",
+    "def": "Aparato que recibe y reproduce emisiones de sonido; también la emisora que las transmite.",
+    "answer": [
+     "RADIO"
+    ]
+   },
+   {
+    "letter": "S",
+    "type": "empieza",
+    "def": "Fruta grande de corteza verde y pulpa roja con pepitas negras.",
+    "answer": [
+     "SANDÍA"
+    ]
+   },
+   {
+    "letter": "T",
+    "type": "empieza",
+    "def": "Aparato que sirve para hablar con alguien que está lejos.",
+    "answer": [
+     "TELÉFONO",
+     "MÓVIL"
+    ]
+   },
+   {
+    "letter": "U",
+    "type": "empieza",
+    "def": "Institución de enseñanza superior donde se estudia un grado.",
+    "answer": [
+     "UNIVERSIDAD"
+    ]
+   },
+   {
+    "letter": "V",
+    "type": "empieza",
+    "def": "Hembra del toro que da leche.",
+    "answer": [
+     "VACA"
+    ]
+   },
+   {
+    "letter": "X",
+    "type": "contiene",
+    "def": "Instrumento de viento metálico, muy típico del jazz.",
+    "answer": [
+     "SAXOFÓN",
+     "SAXO",
+     "SAXÓFONO"
+    ]
+   },
+   {
+    "letter": "Y",
+    "type": "empieza",
+    "def": "Embarcación de recreo, normalmente grande y lujosa.",
+    "answer": [
+     "YATE"
+    ]
+   },
+   {
+    "letter": "Z",
+    "type": "contiene",
+    "def": "Masa redonda y plana con tomate y queso, cocida al horno, de origen italiano.",
+    "answer": [
+     "PIZZA"
+    ]
+   }
+  ]
+ }
+]

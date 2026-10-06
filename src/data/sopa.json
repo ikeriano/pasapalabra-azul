@@ -1,0 +1,168 @@
+[
+ {
+  "category": "ANIMALES DEL HORÓSCOPO CHINO",
+  "words": [
+   "RATA",
+   "BUEY",
+   "TIGRE",
+   "GALLO",
+   "PERRO",
+   "CERDO",
+   "CABRA",
+   "MONO"
+  ]
+ },
+ {
+  "category": "COLORES",
+  "words": [
+   "ROJO",
+   "AZUL",
+   "VERDE",
+   "GRIS",
+   "NEGRO",
+   "ROSA",
+   "LILA",
+   "OCRE",
+   "MALVA"
+  ]
+ },
+ {
+  "category": "FRUTAS",
+  "words": [
+   "PERA",
+   "UVA",
+   "KIWI",
+   "LIMA",
+   "MANGO",
+   "MELÓN",
+   "FRESA",
+   "COCO",
+   "HIGO",
+   "PIÑA"
+  ]
+ },
+ {
+  "category": "PARTES DEL CUERPO",
+  "words": [
+   "MANO",
+   "PIE",
+   "BRAZO",
+   "CODO",
+   "DEDO",
+   "OJO",
+   "NARIZ",
+   "BOCA",
+   "PECHO",
+   "NUCA",
+   "UÑA"
+  ]
+ },
+ {
+  "category": "ANIMALES MARINOS",
+  "words": [
+   "PULPO",
+   "FOCA",
+   "ATÚN",
+   "ORCA",
+   "RAYA",
+   "MERO",
+   "SEPIA",
+   "ERIZO",
+   "SARGO"
+  ]
+ },
+ {
+  "category": "INSTRUMENTOS MUSICALES",
+  "words": [
+   "PIANO",
+   "ARPA",
+   "BOMBO",
+   "GAITA",
+   "TUBA",
+   "OBOE",
+   "VIOLA",
+   "BAJO",
+   "CAJÓN"
+  ]
+ },
+ {
+  "category": "CIUDADES DE ESPAÑA",
+  "words": [
+   "LUGO",
+   "SORIA",
+   "JAÉN",
+   "CÁDIZ",
+   "LEÓN",
+   "ÁVILA",
+   "VIGO",
+   "REUS",
+   "ELCHE"
+  ]
+ },
+ {
+  "category": "DEPORTES",
+  "words": [
+   "TENIS",
+   "GOLF",
+   "POLO",
+   "RUGBY",
+   "JUDO",
+   "REMO",
+   "VELA",
+   "BOXEO",
+   "SURF"
+  ]
+ },
+ {
+  "category": "PRENDAS DE ROPA",
+  "words": [
+   "FALDA",
+   "GORRO",
+   "BOTA",
+   "CHAL",
+   "CAPA",
+   "BATA",
+   "BOINA",
+   "BLUSA",
+   "MEDIA"
+  ]
+ },
+ {
+  "category": "PROFESIONES",
+  "words": [
+   "JUEZ",
+   "CHEF",
+   "ACTOR",
+   "POETA",
+   "MAGO",
+   "GUÍA",
+   "BUZO",
+   "TENOR"
+  ]
+ },
+ {
+  "category": "COSAS DE LA COCINA",
+  "words": [
+   "OLLA",
+   "TAZA",
+   "PLATO",
+   "VASO",
+   "HORNO",
+   "JARRA",
+   "CAZO",
+   "BOL"
+  ]
+ },
+ {
+  "category": "PLANETAS Y ASTROS",
+  "words": [
+   "SOL",
+   "LUNA",
+   "MARTE",
+   "VENUS",
+   "URANO",
+   "ASTRO",
+   "NOVA"
+  ]
+ }
+]

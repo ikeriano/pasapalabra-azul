@@ -1,0 +1,7 @@
+node_modules/
+dist/
+dist-pages/
+shots/
+public/refs/
+*.log
+.DS_Store

@@ -1,0 +1,452 @@
+[
+ {
+  "q": "¿Cuál es la capital de Portugal?",
+  "options": [
+   "Lisboa",
+   "Oporto",
+   "Coímbra",
+   "Faro"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuántos días tiene un año bisiesto?",
+  "options": [
+   "366",
+   "365",
+   "364",
+   "360"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué planeta es conocido como el planeta rojo?",
+  "options": [
+   "Marte",
+   "Venus",
+   "Júpiter",
+   "Saturno"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Quién escribió «Don Quijote de la Mancha»?",
+  "options": [
+   "Cervantes",
+   "Lope de Vega",
+   "Quevedo",
+   "Góngora"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿En qué ciudad está la Sagrada Familia?",
+  "options": [
+   "Barcelona",
+   "Valencia",
+   "Madrid",
+   "Sevilla"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es el río más largo que discurre íntegramente por España?",
+  "options": [
+   "Ebro",
+   "Tajo",
+   "Duero",
+   "Guadalquivir"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué pintor creó el «Guernica»?",
+  "options": [
+   "Picasso",
+   "Dalí",
+   "Miró",
+   "Velázquez"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuántas patas tiene una araña?",
+  "options": [
+   "8",
+   "6",
+   "10",
+   "12"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué océano baña las costas de Galicia?",
+  "options": [
+   "Atlántico",
+   "Pacífico",
+   "Índico",
+   "Ártico"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es el símbolo químico del oro?",
+  "options": [
+   "Au",
+   "Ag",
+   "Or",
+   "Go"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿En qué año llegó Colón a América?",
+  "options": [
+   "1492",
+   "1512",
+   "1453",
+   "1500"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué instrumento tiene teclas blancas y negras?",
+  "options": [
+   "Piano",
+   "Violín",
+   "Arpa",
+   "Flauta"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es el animal terrestre más rápido?",
+  "options": [
+   "Guepardo",
+   "León",
+   "Caballo",
+   "Gacela"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es la montaña más alta de España?",
+  "options": [
+   "Teide",
+   "Mulhacén",
+   "Aneto",
+   "Veleta"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuántos jugadores de cada equipo hay en pista en un partido de baloncesto?",
+  "options": [
+   "5",
+   "6",
+   "7",
+   "11"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué gas absorben las plantas para hacer la fotosíntesis?",
+  "options": [
+   "Dióxido de carbono",
+   "Oxígeno",
+   "Nitrógeno",
+   "Helio"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿En qué continente está Egipto?",
+  "options": [
+   "África",
+   "Asia",
+   "Europa",
+   "Oceanía"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué comunidad autónoma tiene como capital Mérida?",
+  "options": [
+   "Extremadura",
+   "Andalucía",
+   "Castilla-La Mancha",
+   "Murcia"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Quién pintó «Las Meninas»?",
+  "options": [
+   "Velázquez",
+   "Goya",
+   "El Greco",
+   "Murillo"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuántos lados tiene un hexágono?",
+  "options": [
+   "6",
+   "5",
+   "7",
+   "8"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué tenista español ha ganado Roland Garros 14 veces?",
+  "options": [
+   "Rafa Nadal",
+   "Carlos Alcaraz",
+   "David Ferrer",
+   "Carlos Moyá"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es el hueso más largo del cuerpo humano?",
+  "options": [
+   "Fémur",
+   "Tibia",
+   "Húmero",
+   "Radio"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué moneda se usa hoy en España?",
+  "options": [
+   "Euro",
+   "Peseta",
+   "Dólar",
+   "Libra"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es la capital de Italia?",
+  "options": [
+   "Roma",
+   "Milán",
+   "Nápoles",
+   "Florencia"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿A qué temperatura hierve el agua al nivel del mar?",
+  "options": [
+   "100 °C",
+   "90 °C",
+   "120 °C",
+   "80 °C"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es la isla más grande de las Baleares?",
+  "options": [
+   "Mallorca",
+   "Menorca",
+   "Ibiza",
+   "Formentera"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Quién fue el primer ser humano en pisar la Luna?",
+  "options": [
+   "Neil Armstrong",
+   "Yuri Gagarin",
+   "Buzz Aldrin",
+   "Michael Collins"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué ciudad celebra los Sanfermines?",
+  "options": [
+   "Pamplona",
+   "Bilbao",
+   "Logroño",
+   "Zaragoza"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuántos minutos tiene una hora?",
+  "options": [
+   "60",
+   "100",
+   "50",
+   "30"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál de estos mamíferos pone huevos?",
+  "options": [
+   "Ornitorrinco",
+   "Canguro",
+   "Koala",
+   "Murciélago"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿De qué color es una esmeralda?",
+  "options": [
+   "Verde",
+   "Roja",
+   "Azul",
+   "Amarilla"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Quién escribió la saga de Harry Potter?",
+  "options": [
+   "J. K. Rowling",
+   "J. R. R. Tolkien",
+   "Roald Dahl",
+   "C. S. Lewis"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es el país más grande del mundo por superficie?",
+  "options": [
+   "Rusia",
+   "Canadá",
+   "China",
+   "Estados Unidos"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿En qué ciudad se encuentra la Alhambra?",
+  "options": [
+   "Granada",
+   "Córdoba",
+   "Sevilla",
+   "Málaga"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuántas cuerdas tiene una guitarra española?",
+  "options": [
+   "6",
+   "4",
+   "5",
+   "7"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué vitamina produce nuestra piel gracias al sol?",
+  "options": [
+   "Vitamina D",
+   "Vitamina A",
+   "Vitamina C",
+   "Vitamina B12"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué selección ganó el Mundial de fútbol de 2010?",
+  "options": [
+   "España",
+   "Países Bajos",
+   "Alemania",
+   "Brasil"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es el planeta más grande del sistema solar?",
+  "options": [
+   "Júpiter",
+   "Saturno",
+   "Neptuno",
+   "La Tierra"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué compositor siguió componiendo después de quedarse sordo?",
+  "options": [
+   "Beethoven",
+   "Mozart",
+   "Bach",
+   "Vivaldi"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué tipo de animal es la ballena?",
+  "options": [
+   "Mamífero",
+   "Pez",
+   "Reptil",
+   "Anfibio"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuál es la capital de Francia?",
+  "options": [
+   "París",
+   "Lyon",
+   "Marsella",
+   "Niza"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Qué ciudad española es famosa por su acueducto romano?",
+  "options": [
+   "Segovia",
+   "Mérida",
+   "Tarragona",
+   "Toledo"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Cuántos colores se distinguen tradicionalmente en el arcoíris?",
+  "options": [
+   "7",
+   "5",
+   "6",
+   "8"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿Con qué fruta se elabora la sidra asturiana?",
+  "options": [
+   "Manzana",
+   "Pera",
+   "Uva",
+   "Naranja"
+  ],
+  "correct": 0
+ },
+ {
+  "q": "¿En qué deporte destacó Pau Gasol?",
+  "options": [
+   "Baloncesto",
+   "Fútbol",
+   "Tenis",
+   "Balonmano"
+  ],
+  "correct": 0
+ }
+]
