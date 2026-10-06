@@ -1,8 +1,9 @@
 import { Header } from '../components/Header'
 import { Bubble } from '../components/Bubble'
 import { Tv, Grid9, DotsRing } from '../components/Icons'
+import { AlazLogo } from '../components/AlazLogo'
 
-export function Juegos({ onBack, onPick }: { onBack: () => void; onPick: (g: 'rosco' | 'silla' | 'udc' | 'sopa' | 'donde' | 'tv2d') => void }) {
+export function Juegos({ onBack, onPick }: { onBack: () => void; onPick: (g: 'rosco' | 'silla' | 'udc' | 'sopa' | 'donde' | 'alaz' | 'tv2d') => void }) {
   return (
     <div className="screen juegos">
       <Header title="Juegos" onBack={onBack} backLabel="VOLVER" />
@@ -29,6 +30,10 @@ export function Juegos({ onBack, onPick }: { onBack: () => void; onPick: (g: 'ro
         <button className="game-card" onClick={() => onPick('donde')}>
           <span className="gc-icon"><DotsRing size="58%" style={{ color: '#fff' }} /></span>
           <span className="gc-text"><b>¿Dónde están?</b><small>Memoriza 9 palabras y encuéntralas · 1:30</small></span>
+        </button>
+        <button className="game-card" onClick={() => onPick('alaz')}>
+          <span className="gc-icon alaz-gc"><AlazLogo compact /></span>
+          <span className="gc-text"><b>A la Z</b><small>25 letras · ida y vuelta · la letra revelada en su sitio · 2:30</small></span>
         </button>
         <button className="game-card" onClick={() => onPick('tv2d')}>
           <span className="gc-icon"><Tv size="58%" style={{ color: '#fff' }} /></span>

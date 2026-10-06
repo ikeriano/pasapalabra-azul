@@ -10,6 +10,7 @@ const TABS: { id: Mode; label: string }[] = [
   { id: 'udc', label: 'UNA DE 4' },
   { id: 'sopa', label: 'SOPA' },
   { id: 'donde', label: '¿DÓNDE?' },
+  { id: 'alaz', label: 'A LA Z' },
   { id: 'tv', label: 'PROGRAMA TV' }
 ]
 export function Ranking({ onBack }: { onBack: () => void }) {

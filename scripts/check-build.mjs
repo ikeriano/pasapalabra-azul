@@ -11,7 +11,7 @@ for (const f of must) {
 }
 const js = fs.readdirSync(path.join(dist, 'assets')).filter((f) => f.endsWith('.js'))
 const all = js.map((f) => fs.readFileSync(path.join(dist, 'assets', f), 'utf8')).join('\n')
-for (const s of ['SOPA DE LETRAS', '¿DÓNDE ESTÁN?', 'LA SILLA AZUL', 'UNA DE CUATRO', 'EL ROSCO', 'Presiona para empezar']) {
+for (const s of ['SOPA DE LETRAS', '¿DÓNDE ESTÁN?', 'LA SILLA AZUL', 'UNA DE CUATRO', 'EL ROSCO', 'A LA Z', 'Presiona para empezar', '¡Bienvenidos al plató!']) {
   if (!all.includes(s)) { console.log('✗ bundle lacks', JSON.stringify(s)); ok = false } else console.log('✓ bundle has', JSON.stringify(s))
 }
 const plato = js.find((f) => f.startsWith('Plato-'))

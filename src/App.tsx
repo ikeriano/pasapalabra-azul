@@ -13,11 +13,12 @@ import { DueloSetup } from './screens/Duelo'
 import { ProgramaFlow } from './screens/Tv'
 import { Sopa } from './screens/Sopa'
 import { Donde } from './screens/Donde'
+import { Alaz } from './screens/Alaz'
 import { Splash } from './screens/Splash'
 import { audio } from './audio'
 import { store, useProfile } from './store'
-import { dailyRosco, dondeBoards, randomRosco, sillaSession, sopaSession, udcSession, type SopaPuzzle } from './data'
-import type { GameResult, Mode, RoscoBank, SillaEntry, UdcQuestion } from './types'
+import { dailyRosco, dondeBoards, randomAlaz, randomRosco, sillaSession, sopaSession, udcSession, type SopaPuzzle } from './data'
+import type { AlazBank, GameResult, Mode, RoscoBank, SillaEntry, UdcQuestion } from './types'
 import { todayKey } from './utils'
 
 const Plato = lazy(() => import('./plato/Plato'))
@@ -43,10 +44,11 @@ type Route =
   | { name: 'udc'; questions: UdcQuestion[]; key: number }
   | { name: 'sopa'; puzzles: SopaPuzzle[]; key: number }
   | { name: 'donde'; boards: string[][]; key: number }
+  | { name: 'alaz'; bank: AlazBank; key: number }
   | { name: 'tv'; key: number }
   | { name: 'tv2d'; key: number }
 
-const BG_CY: Record<string, string> = { menu: '47%', rosco: '36%', silla: '50%', udc: '52%', sopa: '50%', donde: '50%', splash: '46%' }
+const BG_CY: Record<string, string> = { menu: '47%', rosco: '36%', silla: '50%', udc: '52%', sopa: '50%', donde: '50%', alaz: '48%', splash: '46%' }
 const DEMO = Number(new URLSearchParams(location.search).get('demo')) || 0
 
 function initialRoute(): Route {
@@ -59,6 +61,7 @@ function initialRoute(): Route {
     case 'udc': return { name: 'udc', questions: udcSession(17), key: 1 }
     case 'sopa': return { name: 'sopa', puzzles: sopaSession(8), key: 1 }
     case 'donde': return { name: 'donde', boards: dondeBoards(6), key: 1 }
+    case 'alaz': return { name: 'alaz', bank: randomAlaz(), key: 1 }
     case 'lista': return { name: 'tv2d', key: 1 }
     case 'juegos': return { name: 'juegos' }
     case 'opciones': return { name: 'opciones' }
@@ -77,7 +80,7 @@ export default function App() {
 
   useEffect(() => {
     if (route.name === 'tv') return // the 3D plató manages its own music (menu theme on set, game bed during pruebas)
-    const game = ['rosco', 'silla', 'udc', 'sopa', 'donde', 'tv2d'].includes(route.name)
+    const game = ['rosco', 'silla', 'udc', 'sopa', 'donde', 'alaz', 'tv2d'].includes(route.name)
     audio.setScene(route.name === 'splash' ? 'none' : game ? 'game' : 'menu')
   }, [route.name])
 
@@ -114,6 +117,7 @@ export default function App() {
         if (g === 'udc') setRoute({ name: 'udc', questions: udcSession(17), key: k() })
         if (g === 'sopa') setRoute({ name: 'sopa', puzzles: sopaSession(8), key: k() })
         if (g === 'donde') setRoute({ name: 'donde', boards: dondeBoards(6), key: k() })
+        if (g === 'alaz') setRoute({ name: 'alaz', bank: randomAlaz(), key: k() })
         if (g === 'tv2d') setRoute({ name: 'tv2d', key: k() })
       }} />
       break
@@ -134,6 +138,7 @@ export default function App() {
     case 'udc': screen = <UnaDeCuatro key={route.key} questions={route.questions} time={DEBUG_T ?? 90} onExit={menu} onDone={record} />; break
     case 'sopa': screen = <Sopa key={route.key} puzzles={route.puzzles} time={DEBUG_T ?? 90} onExit={menu} onDone={record} />; break
     case 'donde': screen = <Donde key={route.key} boards={route.boards} time={DEBUG_T ?? 90} onExit={menu} onDone={record} />; break
+    case 'alaz': screen = <Alaz key={route.key} bank={route.bank} time={DEBUG_T ?? 150} onExit={menu} onDone={record} />; break
     case 'tv':
       screen = <></>
       break

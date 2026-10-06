@@ -2,8 +2,10 @@ export type LetterStatus = 'pending' | 'current' | 'correct' | 'wrong' | 'passed
 export interface RoscoEntry { letter: string; type: 'empieza' | 'contiene'; def: string; answer: string[] }
 export interface RoscoBank { id: string; name: string; entries: RoscoEntry[] }
 export interface SillaEntry { letter: string; def: string; answer: string[] }
+export interface AlazEntry { letter: string; def: string; answer: string[] }
+export interface AlazBank { id: string; name: string; entries: AlazEntry[] }
 export interface UdcQuestion { q: string; options: string[]; correct: number }
-export type Mode = 'rosco' | 'diario' | 'silla' | 'udc' | 'sopa' | 'donde' | 'tv' | 'duelo'
+export type Mode = 'rosco' | 'diario' | 'silla' | 'udc' | 'sopa' | 'donde' | 'alaz' | 'tv' | 'duelo'
 export interface ResultItem {
   letter?: string
   heading: string

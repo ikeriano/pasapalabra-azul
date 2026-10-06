@@ -63,3 +63,10 @@ export function todayKey(d = new Date()): string {
 export function display(s: string): string {
   return s.toUpperCase()
 }
+
+/** Show the answer with only `letter` revealed (in every position it appears); other letters become "_". */
+export function blankPattern(answer: string, letter: string): string {
+  const plain = norm(answer)
+  const L = norm(letter)
+  return plain.split('').map((ch) => (ch === L ? ch : '_')).join(' ')
+}

@@ -3,7 +3,8 @@ import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import '@fontsource/fredoka/600.css'
-import { StudioSet, SOPA_SPOT, DONDE_SPOT } from './Set'
+import { StudioSet, SOPA_SPOT, DONDE_SPOT, ALAZ_SPOT } from './Set'
+import { Presentador, PresentadorBubble } from './Presentador'
 import { labelTexture, loadFonts } from './textures'
 import { Joystick, LookPad, type InputState } from './controls'
 import { Background } from '../components/Background'
@@ -13,21 +14,23 @@ import { Silla } from '../screens/Silla'
 import { UnaDeCuatro } from '../screens/UnaDeCuatro'
 import { Sopa } from '../screens/Sopa'
 import { Donde } from '../screens/Donde'
+import { Alaz } from '../screens/Alaz'
 import { ProgramaFlow } from '../screens/Tv'
-import { dondeBoards, randomRosco, sillaSession, sopaSession, udcSession } from '../data'
+import { dondeBoards, randomAlaz, randomRosco, sillaSession, sopaSession, udcSession } from '../data'
 import { audio } from '../audio'
 import { useProfile } from '../store'
 import type { GameResult } from '../types'
 
-type HotId = 'rosco' | 'silla' | 'udc' | 'sopa' | 'donde'
+type HotId = 'rosco' | 'silla' | 'udc' | 'sopa' | 'donde' | 'alaz'
 const HOTSPOTS: { id: HotId; x: number; z: number; r: number; label: string; y: number; accent: string }[] = [
   { id: 'rosco', x: 0, z: 0, r: 5.9, label: 'EL ROSCO', y: 3.0, accent: '#3fcb2f' },
   { id: 'silla', x: -6.6, z: -5.4, r: 3.6, label: 'LA SILLA AZUL', y: 3.4, accent: '#2a86e6' },
   { id: 'udc', x: 5.2, z: -6.4, r: 2.6, label: 'UNA DE CUATRO', y: 3.0, accent: '#ff8a2a' },
   { id: 'sopa', x: SOPA_SPOT[0], z: SOPA_SPOT[2], r: 2.3, label: 'SOPA DE LETRAS', y: 4.1, accent: '#36c25a' },
-  { id: 'donde', x: DONDE_SPOT[0], z: DONDE_SPOT[2], r: 2.2, label: '¿DÓNDE ESTÁN?', y: 4.1, accent: '#13a8e8' }
+  { id: 'donde', x: DONDE_SPOT[0], z: DONDE_SPOT[2], r: 2.2, label: '¿DÓNDE ESTÁN?', y: 4.1, accent: '#13a8e8' },
+  { id: 'alaz', x: ALAZ_SPOT[0], z: ALAZ_SPOT[2], r: 2.4, label: 'A LA Z', y: 3.6, accent: '#ff5a5a' }
 ]
-const ACTION: Record<HotId, string> = { rosco: 'JUGAR EL ROSCO', silla: 'LA SILLA AZUL', udc: 'UNA DE CUATRO', sopa: 'SOPA DE LETRAS', donde: '¿DÓNDE ESTÁN?' }
+const ACTION: Record<HotId, string> = { rosco: 'JUGAR EL ROSCO', silla: 'LA SILLA AZUL', udc: 'UNA DE CUATRO', sopa: 'SOPA DE LETRAS', donde: '¿DÓNDE ESTÁN?', alaz: 'A LA Z' }
 
 /** Player pose persists across overlay open/close (and remounts). */
 const pose = { x: 0, z: 10.4, yaw: 0, pitch: -0.08, eye: 1.65, fixedEye: 0 }
@@ -59,7 +62,7 @@ function collide(x: number, z: number): [number, number] {
   r = Math.hypot(x, z)
   if (r < 3.55) { const k = 3.55 / Math.max(r, 0.001); x *= k; z *= k }
   // podiums + jib base
-  for (const [cx, cz, rr] of [[-7.4, -5.2, 0.55], [-5.7, -5.7, 0.55], [-10.6, 2.6, 0.9], [-9.0, 6.4, 0.7], [8.5, 2.5, 0.7]] as const) {
+  for (const [cx, cz, rr] of [[-7.4, -5.2, 0.55], [-5.7, -5.7, 0.55], [-10.6, 2.6, 0.9], [-9.0, 6.4, 0.7], [8.5, 2.5, 0.7], [1.8, 7.4, 0.55]] as const) {
     const d = Math.hypot(x - cx, z - cz)
     if (d < rr) { x = cx + ((x - cx) / Math.max(d, 0.001)) * rr; z = cz + ((z - cz) / Math.max(d, 0.001)) * rr }
   }
@@ -188,6 +191,7 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
     if (game.kind === 'udc') overlay = <UnaDeCuatro key={game.key} questions={udcSession(17)} time={90} onExit={close} onDone={done} continueLabel="VOLVER AL PLATÓ" />
     if (game.kind === 'sopa') overlay = <Sopa key={game.key} puzzles={sopaSession(8)} time={90} onExit={close} onDone={done} continueLabel="VOLVER AL PLATÓ" />
     if (game.kind === 'donde') overlay = <Donde key={game.key} boards={dondeBoards(6)} time={90} onExit={close} onDone={done} continueLabel="VOLVER AL PLATÓ" />
+    if (game.kind === 'alaz') overlay = <Alaz key={game.key} bank={randomAlaz()} time={150} onExit={close} onDone={done} continueLabel="VOLVER AL PLATÓ" />
     if (game.kind === 'full') overlay = <ProgramaFlow key={game.key} onExit={close} onFinish={(total, rs) => {
       onRecord({ mode: 'tv', title: 'PROGRAMA', timeUsed: 0, hits: rs.reduce((s, r) => s + r.hits, 0), fails: rs.reduce((s, r) => s + r.fails, 0), score: total, items: [], shareText: '' })
       close()
@@ -228,6 +232,8 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
           <Suspense fallback={null}>
             <Lights />
             <StudioSet />
+            <Presentador position={[1.8, 0, 7.4]} />
+            <PresentadorBubble position={[2.7, 3.15, 7.4]} nearLabel={near} />
             {HOTSPOTS.map((h) => <HotspotLabel key={h.id} h={h} near={near === h.id} />)}
             <Player input={input} active={!gameOpen} onNear={setNear} />
           </Suspense>

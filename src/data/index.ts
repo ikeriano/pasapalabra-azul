@@ -1,8 +1,8 @@
 import roscosRaw from './roscos.json'
 import sillaRaw from './silla.json'
 import udcRaw from './unadecuatro.json'
-import type { RoscoBank, SillaEntry, UdcQuestion, RoscoEntry } from '../types'
-import { hashStr, mulberry32, shuffle, todayKey } from '../utils'
+import type { RoscoBank, SillaEntry, UdcQuestion, RoscoEntry, AlazBank } from '../types'
+import { hashStr, mulberry32, shuffle, todayKey, norm } from '../utils'
 
 export const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']
 export const ROSCOS = roscosRaw as RoscoBank[]
@@ -38,7 +38,7 @@ export function udcSession(n: number): UdcQuestion[] {
 
 import sopaRaw from './sopa.json'
 import dondeRaw from './donde.json'
-import { norm } from '../utils'
+import alazRaw from './alaz.json'
 
 export interface SopaCategory { category: string; words: string[] }
 export interface SopaPuzzle { category: string; grid: string[][]; words: { display: string; plain: string; cells: [number, number][] }[] }
@@ -99,4 +99,13 @@ export function dondeBoards(n = 6): string[][] {
     out.push(pool.splice(0, 9))
   }
   return out
+}
+
+export const ALAZ = alazRaw as AlazBank[]
+let lastAlaz = ''
+export function randomAlaz(exclude?: string): AlazBank {
+  const pool = ALAZ.filter((r) => r.id !== lastAlaz && r.id !== exclude)
+  const pick = pool[Math.floor(Math.random() * pool.length)] ?? ALAZ[0]
+  lastAlaz = pick.id
+  return pick
 }

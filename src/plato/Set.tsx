@@ -311,6 +311,7 @@ function DondePanel() { const m = useMemo(() => T.dondeBoardTexture(), []); retu
 
 export const SOPA_SPOT: [number, number, number] = [-7.4, 0, 5.0]
 export const DONDE_SPOT: [number, number, number] = [7.4, 0, 4.2]
+export const ALAZ_SPOT: [number, number, number] = [-3.2, 0, 7.8]
 
 export function UdcSpot({ position, color = '#ffd27a', rim = '#fff2cf', beam = '#ffe2a6' }: { position: [number, number, number]; color?: string; rim?: string; beam?: string }) {
   const ref = useRef<THREE.Mesh>(null)
@@ -342,6 +343,7 @@ export function StudioSet() {
       <SopaPanel />
       <UdcSpot position={DONDE_SPOT} color="#4cc8ff" rim="#e3f7ff" beam="#b6ecff" />
       <DondePanel />
+      <UdcSpot position={ALAZ_SPOT} color="#ff7a7a" rim="#ffe3e3" beam="#ffb6b6" />
     </group>
   )
 }

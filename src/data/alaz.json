@@ -1,0 +1,545 @@
+[
+ {
+  "id": "alaz-1",
+  "name": "A la Z · 1",
+  "entries": [
+   {
+    "letter": "A",
+    "def": "Ciudad andaluza famosa por su Mezquita-Catedral",
+    "answer": [
+     "CÓRDOBA"
+    ]
+   },
+   {
+    "letter": "B",
+    "def": "Ave marina de gran envergadura",
+    "answer": [
+     "ALBATROS"
+    ]
+   },
+   {
+    "letter": "C",
+    "def": "Instrumento de cuerda frotada más grave que la viola",
+    "answer": [
+     "VIOLONCELO"
+    ]
+   },
+   {
+    "letter": "D",
+    "def": "Ciudad castellana con una célebre catedral gótica",
+    "answer": [
+     "VALLADOLID"
+    ]
+   },
+   {
+    "letter": "E",
+    "def": "Mamífero cetáceo de gran tamaño",
+    "answer": [
+     "BALLENA"
+    ]
+   },
+   {
+    "letter": "F",
+    "def": "Establecimiento donde se toma café",
+    "answer": [
+     "CAFETERÍA"
+    ]
+   },
+   {
+    "letter": "G",
+    "def": "Barra de metal precioso",
+    "answer": [
+     "LINGOTE"
+    ]
+   },
+   {
+    "letter": "H",
+    "def": "Bebida caliente preparada con cacao",
+    "answer": [
+     "CHOCOLATE"
+    ]
+   },
+   {
+    "letter": "I",
+    "def": "Ciudad gallega famosa por su catedral",
+    "answer": [
+     "SANTIAGO"
+    ]
+   },
+   {
+    "letter": "J",
+    "def": "Fruta cítrica de color anaranjado",
+    "answer": [
+     "NARANJA"
+    ]
+   },
+   {
+    "letter": "L",
+    "def": "Prenda que se pone en los pies",
+    "answer": [
+     "CALCETÍN"
+    ]
+   },
+   {
+    "letter": "M",
+    "def": "Ciudad universitaria castellana",
+    "answer": [
+     "SALAMANCA"
+    ]
+   },
+   {
+    "letter": "N",
+    "def": "Instrumento musical de teclas blancas y negras",
+    "answer": [
+     "PIANO"
+    ]
+   },
+   {
+    "letter": "Ñ",
+    "def": "Elevación natural del terreno de gran altura",
+    "answer": [
+     "MONTAÑA"
+    ]
+   },
+   {
+    "letter": "O",
+    "def": "Herramienta de carpintero para hacer mortajas",
+    "answer": [
+     "ESCOPLO"
+    ]
+   },
+   {
+    "letter": "P",
+    "def": "Prenda de abrigo sin mangas",
+    "answer": [
+     "CAPA"
+    ]
+   },
+   {
+    "letter": "Q",
+    "def": "Producto lácteo fresco y granulado",
+    "answer": [
+     "REQUESÓN"
+    ]
+   },
+   {
+    "letter": "R",
+    "def": "Instrumento de viento-metal de embocadura",
+    "answer": [
+     "TROMPETA"
+    ]
+   },
+   {
+    "letter": "S",
+    "def": "Construcción religiosa de gran tamaño",
+    "answer": [
+     "BASÍLICA"
+    ]
+   },
+   {
+    "letter": "T",
+    "def": "Herramienta para apretar o aflojar tuercas",
+    "answer": [
+     "TRINQUETE"
+    ]
+   },
+   {
+    "letter": "U",
+    "def": "Ciudad murciana conocida por sus huertas",
+    "answer": [
+     "MURCIA"
+    ]
+   },
+   {
+    "letter": "V",
+    "def": "Ciudad mediterránea capital de su comunidad",
+    "answer": [
+     "VALENCIA"
+    ]
+   },
+   {
+    "letter": "X",
+    "def": "Ciudad mexicana antigua de los aztecas",
+    "answer": [
+     "MÉXICO"
+    ]
+   },
+   {
+    "letter": "Y",
+    "def": "Persona que aplica el derecho sin rigor",
+    "answer": [
+     "LEGULEYO"
+    ]
+   },
+   {
+    "letter": "Z",
+    "def": "Ciudad castellana famosa por su catedral",
+    "answer": [
+     "CÁDIZ"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "alaz-2",
+  "name": "A la Z · 2",
+  "entries": [
+   {
+    "letter": "A",
+    "def": "Capital de Andalucía",
+    "answer": [
+     "SEVILLA"
+    ]
+   },
+   {
+    "letter": "B",
+    "def": "Mamífero africano rayado de blanco y negro",
+    "answer": [
+     "CEBRA"
+    ]
+   },
+   {
+    "letter": "C",
+    "def": "Embarcación pequeña a remo",
+    "answer": [
+     "BARCA"
+    ]
+   },
+   {
+    "letter": "D",
+    "def": "Ciudad castellana con una célebre catedral gótica",
+    "answer": [
+     "MADRID"
+    ]
+   },
+   {
+    "letter": "E",
+    "def": "Ave nocturna de gran cabeza y ojos grandes",
+    "answer": [
+     "LECHUZA"
+    ]
+   },
+   {
+    "letter": "F",
+    "def": "Edificio destinado a la fabricación industrial",
+    "answer": [
+     "FÁBRICA"
+    ]
+   },
+   {
+    "letter": "G",
+    "def": "Ave marina blanca de pico amarillo",
+    "answer": [
+     "GAVIOTA"
+    ]
+   },
+   {
+    "letter": "H",
+    "def": "Bebida espumosa de celebración",
+    "answer": [
+     "CHAMPÁN"
+    ]
+   },
+   {
+    "letter": "I",
+    "def": "Ciudad italiana conocida por su torre inclinada",
+    "answer": [
+     "PISA"
+    ]
+   },
+   {
+    "letter": "J",
+    "def": "Juego de mesa con fichas blancas y negras",
+    "answer": [
+     "AJEDREZ"
+    ]
+   },
+   {
+    "letter": "L",
+    "def": "Insecto que produce luz en la noche",
+    "answer": [
+     "LUCIÉRNAGA"
+    ]
+   },
+   {
+    "letter": "M",
+    "def": "Metal de color blanco plateado",
+    "answer": [
+     "ALUMINIO"
+    ]
+   },
+   {
+    "letter": "N",
+    "def": "Árbol de fruto duro y comestible",
+    "answer": [
+     "NOGAL"
+    ]
+   },
+   {
+    "letter": "Ñ",
+    "def": "País sudamericano con ñ en el gentilicio",
+    "answer": [
+     "ESPAÑOL"
+    ]
+   },
+   {
+    "letter": "O",
+    "def": "Mueble para guardar ropa",
+    "answer": [
+     "ARMARIO"
+    ]
+   },
+   {
+    "letter": "P",
+    "def": "Ave tropical de pico curvado y colores vivos",
+    "answer": [
+     "PAPAGAYO"
+    ]
+   },
+   {
+    "letter": "Q",
+    "def": "Bebida alcohólica mexicana de agave",
+    "answer": [
+     "TEQUILA"
+    ]
+   },
+   {
+    "letter": "R",
+    "def": "Máquina que eleva cargas pesadas en obras",
+    "answer": [
+     "GRÚA"
+    ]
+   },
+   {
+    "letter": "S",
+    "def": "Mamífero plantígrado de gran tamaño",
+    "answer": [
+     "OSO"
+    ]
+   },
+   {
+    "letter": "T",
+    "def": "Asiento con respaldo y sin brazos",
+    "answer": [
+     "TABURETE"
+    ]
+   },
+   {
+    "letter": "U",
+    "def": "Ciudad castellana conocida por sus casas colgadas",
+    "answer": [
+     "CUENCA"
+    ]
+   },
+   {
+    "letter": "V",
+    "def": "Embarcación movida por el viento",
+    "answer": [
+     "VELERO"
+    ]
+   },
+   {
+    "letter": "X",
+    "def": "Instrumento de percusión de láminas afinadas",
+    "answer": [
+     "XILÓFONO"
+    ]
+   },
+   {
+    "letter": "Y",
+    "def": "Ciudad castellana amurallada",
+    "answer": [
+     "AYLLÓN"
+    ]
+   },
+   {
+    "letter": "Z",
+    "def": "Ciudad aragonesa bañada por el Ebro",
+    "answer": [
+     "ZARAGOZA"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "alaz-3",
+  "name": "A la Z · 3",
+  "entries": [
+   {
+    "letter": "A",
+    "def": "Fruto seco de cáscara dura y forma ovalada",
+    "answer": [
+     "ALMENDRA"
+    ]
+   },
+   {
+    "letter": "B",
+    "def": "Ciudad costera de Cataluña",
+    "answer": [
+     "BARCELONA"
+    ]
+   },
+   {
+    "letter": "C",
+    "def": "Utensilio de cocina para freír alimentos",
+    "answer": [
+     "CACEROLA"
+    ]
+   },
+   {
+    "letter": "D",
+    "def": "Postre de azúcar tostado y yema",
+    "answer": [
+     "BUDIN"
+    ]
+   },
+   {
+    "letter": "E",
+    "def": "Insecto social que produce miel",
+    "answer": [
+     "ABEJA"
+    ]
+   },
+   {
+    "letter": "F",
+    "def": "Instrumento de viento de madera con orificios",
+    "answer": [
+     "FLAUTA"
+    ]
+   },
+   {
+    "letter": "G",
+    "def": "Deporte que se practica con palo y pelota pequeña",
+    "answer": [
+     "GOLF"
+    ]
+   },
+   {
+    "letter": "H",
+    "def": "Ave rapaz diurna de vuelo rápido",
+    "answer": [
+     "HALCÓN"
+    ]
+   },
+   {
+    "letter": "I",
+    "def": "País europeo con forma de bota",
+    "answer": [
+     "ITALIA"
+    ]
+   },
+   {
+    "letter": "J",
+    "def": "Mes del año que sigue a junio",
+    "answer": [
+     "JULIO"
+    ]
+   },
+   {
+    "letter": "L",
+    "def": "Aleación de cobre y cinc de color amarillento",
+    "answer": [
+     "LATÓN"
+    ]
+   },
+   {
+    "letter": "M",
+    "def": "Prenda de vestir con mangas y cuello",
+    "answer": [
+     "CAMISA"
+    ]
+   },
+   {
+    "letter": "N",
+    "def": "Embarcación de guerra de gran tamaño",
+    "answer": [
+     "NAVÍO"
+    ]
+   },
+   {
+    "letter": "Ñ",
+    "def": "País europeo cuya capital es Madrid",
+    "answer": [
+     "ESPAÑA"
+    ]
+   },
+   {
+    "letter": "O",
+    "def": "Ciudad asturiana",
+    "answer": [
+     "OVIEDO"
+    ]
+   },
+   {
+    "letter": "P",
+    "def": "Ciudad balear capital de su isla",
+    "answer": [
+     "PALMA"
+    ]
+   },
+   {
+    "letter": "Q",
+    "def": "Construcción de piedras o ladrillos",
+    "answer": [
+     "BLOQUE"
+    ]
+   },
+   {
+    "letter": "R",
+    "def": "Flor de tallo espinoso y pétalos perfumados",
+    "answer": [
+     "ROSA"
+    ]
+   },
+   {
+    "letter": "S",
+    "def": "Astro que ilumina la Tierra de día",
+    "answer": [
+     "SOL"
+    ]
+   },
+   {
+    "letter": "T",
+    "def": "Bebida caliente de hojas secas",
+    "answer": [
+     "TÉ"
+    ]
+   },
+   {
+    "letter": "U",
+    "def": "Animal equino usado para tirar del arado",
+    "answer": [
+     "YEGUA"
+    ]
+   },
+   {
+    "letter": "V",
+    "def": "Bebida obtenida de la uva fermentada",
+    "answer": [
+     "VINO"
+    ]
+   },
+   {
+    "letter": "X",
+    "def": "Gas noble cuyo símbolo químico es Xe",
+    "answer": [
+     "XENÓN"
+    ]
+   },
+   {
+    "letter": "Y",
+    "def": "Antigua tierra foral vasca, hoy Álava",
+    "answer": [
+     "AYALA"
+    ]
+   },
+   {
+    "letter": "Z",
+    "def": "Calzado que cubre el pie",
+    "answer": [
+     "ZAPATO"
+    ]
+   }
+  ]
+ }
+]
