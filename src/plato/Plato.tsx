@@ -9,6 +9,7 @@ import { labelTexture, loadFonts } from './textures'
 import { Joystick, LookPad, type InputState } from './controls'
 import { Background } from '../components/Background'
 import { BackTri } from '../components/Icons'
+import { BotePill } from '../components/BotePill'
 import { Rosco } from '../screens/Rosco'
 import { Silla } from '../screens/Silla'
 import { UnaDeCuatro } from '../screens/UnaDeCuatro'
@@ -205,7 +206,8 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
         <div className="plato-loading">
           <img src={asset('logo-pasapalabra-sm.png')} alt="Pasapalabra" />
           <p>Este dispositivo no admite gráficos 3D. Puedes jugar la partida completa en 2D.</p>
-          <button className="btn-blue" onClick={() => open('full')}>PARTIDA COMPLETA</button>
+          <BotePill amount={p.bote} program={p.programNumber} className="plato-bote-static" />
+          <button className="btn-blue" onClick={() => open('full')}>NUEVO PROGRAMA</button>
           <button className="btn-ghost" onClick={onExit}>Volver al menú</button>
         </div>
         {overlay && <div className="plato-overlay"><Background /><div className="app">{overlay}</div></div>}
@@ -254,7 +256,8 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
             <span className="back-circle"><BackTri size="58%" style={{ marginLeft: '-8%' }} /></span>
             <span className="back-label">SALIR</span>
           </button>
-          <button className="plato-full" onClick={() => open('full')}>PARTIDA COMPLETA</button>
+          <BotePill amount={p.bote} program={p.programNumber} className="plato-bote" />
+          <button className="plato-full" onClick={() => open('full')}>NUEVO PROGRAMA</button>
           {near && (
             <button className="plato-action" onClick={() => open(near)}>
               <span>{ACTION[near]}</span>

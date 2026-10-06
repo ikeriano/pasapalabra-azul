@@ -12,8 +12,9 @@ import { blankPattern, fmtClock, isCorrect, norm } from '../utils'
 import { LETTERS } from '../data'
 
 type St = Exclude<LetterStatus, 'current'>
-type Phase = 'intro' | 'play' | 'reveal' | 'done'
+type Phase = 'choose' | 'play' | 'reveal' | 'done'
 const N = 25
+const BUY_COST = 5
 
 function nextIdx(status: St[], from: number, dir: 1 | -1): number {
   for (let k = 1; k <= N; k++) {
@@ -23,13 +24,21 @@ function nextIdx(status: St[], from: number, dir: 1 | -1): number {
   return -1
 }
 
-export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
-  bank: AlazBank; time?: number; onExit: () => void; onDone: (r: GameResult) => void; continueLabel?: string
+export function Alaz({ bank, time = 150, onExit, onDone, continueLabel, initialDir, earnedSeconds }: {
+  bank: AlazBank
+  time?: number
+  onExit: () => void
+  onDone: (r: GameResult) => void
+  continueLabel?: string
+  /** Pre-chosen direction (1 = A→Z, -1 = Z→A). If omitted, show the choice screen. */
+  initialDir?: 1 | -1
+  /** Seconds the chooser arrives with (shown on the choice screen). */
+  earnedSeconds?: number
 }) {
-  const [phase, setPhase] = useState<Phase>('intro')
+  const [phase, setPhase] = useState<Phase>(initialDir ? 'play' : 'choose')
   const [status, setStatus] = useState<St[]>(() => Array(N).fill('pending'))
-  const [cur, setCur] = useState(0)
-  const [dir, setDir] = useState<1 | -1>(1)
+  const [dir, setDir] = useState<1 | -1>(initialDir ?? 1)
+  const [cur, setCur] = useState(() => (initialDir === -1 ? N - 1 : 0))
   const [input, setInput] = useState('')
   const [hits, setHits] = useState(0)
   const [fails, setFails] = useState(0)
@@ -39,22 +48,32 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
   const [confirm, setConfirm] = useState(false)
   const [result, setResult] = useState<GameResult | null>(null)
   const [flash, setFlash] = useState<'ok' | 'bad' | ''>('')
+  /** Extra bought letter indices per rosco letter. */
+  const [bought, setBought] = useState<number[][]>(() => Array.from({ length: N }, () => []))
   const leftRef = useRef(left); leftRef.current = left
   const trackRef = useRef<HTMLDivElement>(null)
   const tileRefs = useRef<(HTMLButtonElement | null)[]>([])
   const entry = bank.entries[cur]
-  const pattern = blankPattern(entry.answer[0], entry.letter)
+  const plain = norm(entry.answer[0])
+  const pattern = blankPattern(entry.answer[0], entry.letter, bought[cur])
+  const startsWith = plain[0] === norm(entry.letter)
+  const hiddenIdx = plain.split('').map((ch, i) => i).filter((i) => plain[i] !== norm(entry.letter) && !bought[cur].includes(i))
+  const canBuy = phase === 'play' && left >= BUY_COST && hiddenIdx.length > 0
 
   const finish = useCallback((st: St[], h: number, f: number) => {
     const tl = leftRef.current
     const score = Math.max(0, h * 10 - f * 3 + Math.floor(tl / 5))
-    const items = bank.entries.map((e, i) => ({
-      letter: e.letter,
-      heading: `CONTIENE LA ${e.letter}`,
-      def: e.def,
-      answer: e.answer[0].toUpperCase(),
-      status: st[i] === 'correct' ? 'correct' as const : st[i] === 'wrong' ? 'wrong' as const : 'unanswered' as const
-    }))
+    const items = bank.entries.map((e, i) => {
+      const p = norm(e.answer[0])
+      const starts = p[0] === norm(e.letter)
+      return {
+        letter: e.letter,
+        heading: `${starts ? 'EMPIEZA POR' : 'CONTIENE LA'} ${e.letter}`,
+        def: e.def,
+        answer: e.answer[0].toUpperCase(),
+        status: st[i] === 'correct' ? 'correct' as const : st[i] === 'wrong' ? 'wrong' as const : 'unanswered' as const
+      }
+    })
     setPhase('done')
     setResult({
       mode: 'alaz', title: 'A LA Z COMPLETADA', timeUsed: time - tl, hits: h, fails: f, score, items,
@@ -63,15 +82,13 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
     })
   }, [bank, time])
 
-  // Auto-scroll the letter track so the current tile stays centered
   useLayoutEffect(() => {
     const track = trackRef.current, tile = tileRefs.current[cur]
-    if (!track || !tile || phase === 'intro') return
+    if (!track || !tile || phase === 'choose') return
     const left = tile.offsetLeft - track.clientWidth / 2 + tile.clientWidth / 2
     track.scrollTo({ left: Math.max(0, left), behavior: 'smooth' })
   }, [cur, dir, phase])
 
-  // Timer
   useEffect(() => {
     if (phase !== 'play' || paused || confirm) return
     let last = performance.now()
@@ -90,11 +107,17 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
     if (left <= 0 && phase === 'play') finish(stRef.current.status, stRef.current.hits, stRef.current.fails)
   }, [left, phase, finish])
 
+  const pickDir = (d: 1 | -1) => {
+    setDir(d)
+    setCur(d === 1 ? 0 : N - 1)
+    setPhase('play')
+  }
+
   const advance = (st: St[], h: number, f: number, from: number, d: 1 | -1) => {
     let n = nextIdx(st, from, d)
     let nd = d
     if (n < 0) {
-      // end of this direction: reverse for the second pass over remaining letters
+      // end of this direction → reverse over remaining (pasapalabra leftovers)
       nd = d === 1 ? -1 : 1
       n = nextIdx(st, from, nd)
       if (n < 0) { finish(st, h, f); return }
@@ -102,6 +125,16 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
     }
     setCur(n)
     setPhase('play')
+  }
+
+  const buyLetter = () => {
+    if (!canBuy) return
+    const i = hiddenIdx[0]
+    const next = bought.map((row, li) => (li === cur ? [...row, i] : row))
+    setBought(next)
+    const t = Math.max(0, leftRef.current - BUY_COST)
+    leftRef.current = t
+    setLeft(t)
   }
 
   const submit = () => {
@@ -122,7 +155,7 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
       const st = status.slice(); st[cur] = 'wrong'
       const f = fails + 1
       setStatus(st); setFails(f)
-      setReveal(norm(entry.answer[0]))
+      setReveal(plain)
       setPhase('reveal')
       setTimeout(() => { setReveal(''); advance(st, hits, f, cur, dir) }, 1600)
     }
@@ -150,17 +183,30 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
     window.addEventListener('keydown', h); return () => window.removeEventListener('keydown', h)
   }, [])
 
-  // Display order: A→Z on the forward pass, Z→A on the reverse pass
   const order = dir === 1 ? LETTERS.map((_, i) => i) : LETTERS.map((_, i) => N - 1 - i)
 
-  if (phase === 'intro') {
+  if (phase === 'choose') {
     return (
       <div className="screen alaz-intro">
         <Header title="A la Z" onBack={() => setConfirm(true)} />
         <div className="alaz-intro-body">
           <AlazLogo />
-          <p className="alaz-intro-txt">25 letras · ida A→Z y vuelta Z→A.<br />La letra aparece revelada en su sitio dentro de la palabra.</p>
-          <button className="btn-blue" onClick={() => setPhase('play')}>EMPEZAR</button>
+          <p className="alaz-intro-txt">
+            {earnedSeconds !== undefined
+              ? <>Llegas con <b>{Math.round(earnedSeconds)} s</b> acumulados · eliges el sentido.</>
+              : <>Elige el sentido del abecedario.</>}
+            <br />Empieza por / contiene la letra · puedes comprar letras (−5 s).
+          </p>
+          <div className="alaz-dirs">
+            <button className="alaz-dir-btn" onClick={() => pickDir(1)}>
+              <span className="adb-big">A → Z</span>
+              <small>De la A a la Z</small>
+            </button>
+            <button className="alaz-dir-btn" onClick={() => pickDir(-1)}>
+              <span className="adb-big">Z → A</span>
+              <small>De la Z a la A</small>
+            </button>
+          </div>
         </div>
         {confirm && <ConfirmExit onYes={onExit} onNo={() => setConfirm(false)} />}
       </div>
@@ -176,8 +222,12 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
           <span className="alaz-hits">{hits}</span>
           <span className="alaz-timer">{Math.round(left)}</span>
         </div>
+        <div className="alaz-hint">{startsWith ? `EMPIEZA POR ${entry.letter}` : `CONTIENE LA ${entry.letter}`}</div>
         <div className={`alaz-def ${flash}`}>{entry.def.toUpperCase()}</div>
         <div className="alaz-pattern">{reveal || pattern}</div>
+        <button className={`alaz-buy ${canBuy ? '' : 'off'}`} onClick={buyLetter} disabled={!canBuy}>
+          COMPRAR LETRA (−{BUY_COST}s)
+        </button>
         <div className="alaz-track-wrap">
           <div className="alaz-track" ref={trackRef}>
             {order.map((i) => {
@@ -196,7 +246,7 @@ export function Alaz({ bank, time = 150, onExit, onDone, continueLabel }: {
             })}
           </div>
         </div>
-        <div className="alaz-dir">{dir === 1 ? 'IDA A → Z' : 'VUELTA Z → A'}</div>
+        <div className="alaz-dir">{dir === 1 ? 'SENTIDO A → Z' : 'SENTIDO Z → A'}</div>
       </div>
       <button className="btn-pasapalabra alaz-pasa" onClick={pasapalabra} disabled={phase !== 'play'}>PASAPALABRA</button>
       <AnswerBar value={input} onClear={() => setInput('')} onSend={submit} disabled={phase !== 'play'} />

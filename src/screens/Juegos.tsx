@@ -2,8 +2,11 @@ import { Header } from '../components/Header'
 import { Bubble } from '../components/Bubble'
 import { Tv, Grid9, DotsRing } from '../components/Icons'
 import { AlazLogo } from '../components/AlazLogo'
+import { useProfile } from '../store'
+import { fmtEuro } from '../utils'
 
 export function Juegos({ onBack, onPick }: { onBack: () => void; onPick: (g: 'rosco' | 'silla' | 'udc' | 'sopa' | 'donde' | 'alaz' | 'tv2d') => void }) {
+  const p = useProfile()
   return (
     <div className="screen juegos">
       <Header title="Juegos" onBack={onBack} backLabel="VOLVER" />
@@ -35,9 +38,13 @@ export function Juegos({ onBack, onPick }: { onBack: () => void; onPick: (g: 'ro
           <span className="gc-icon alaz-gc"><AlazLogo compact /></span>
           <span className="gc-text"><b>A la Z</b><small>25 letras · ida y vuelta · la letra revelada en su sitio · 2:30</small></span>
         </button>
-        <button className="game-card" onClick={() => onPick('tv2d')}>
+        <button className="game-card game-card-prog" onClick={() => onPick('tv2d')}>
           <span className="gc-icon"><Tv size="58%" style={{ color: '#fff' }} /></span>
-          <span className="gc-text"><b>Partida completa</b><small>Las 5 pruebas en orden · el tiempo ganado va al Rosco (sin 3D)</small></span>
+          <span className="gc-text">
+            <b>NUEVO PROGRAMA</b>
+            <small>Programa {p.programNumber} · Las 6 pruebas en orden · El Rosco por el bote</small>
+            <span className="gc-bote">BOTE {fmtEuro(p.bote)}</span>
+          </span>
         </button>
       </div>
     </div>

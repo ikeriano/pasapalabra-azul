@@ -9,9 +9,10 @@ import { Rosco } from './Rosco'
 import { Home, Grid9, DotsRing } from '../components/Icons'
 import { ConfirmExit } from '../components/QuickSettings'
 import { setBgPlain } from '../components/bgCenter'
+import { BotePill } from '../components/BotePill'
 import { dondeBoards, randomAlaz, randomRosco, sillaSession, sopaSession, udcSession } from '../data'
-import { useProfile } from '../store'
-import { fmtClock } from '../utils'
+import { store, useProfile, type ProgramaOutcome } from '../store'
+import { fmtClock, fmtEuro } from '../utils'
 
 /** Base time for El Rosco in the PROGRAMA TV flow; every earlier prueba adds seconds on top. */
 export const ROSCO_BASE = 80
@@ -51,31 +52,65 @@ function ListIcon({ id }: { id: (typeof PRUEBAS)[number]['id'] }) {
   )
 }
 
+function BoteWin({ amount, onContinue }: { amount: number; onContinue: () => void }) {
+  return (
+    <div className="bote-win" role="dialog" aria-label="Has ganado el bote">
+      <div className="bote-win-card">
+        <div className="bote-win-bubble">¡El Presentador: ¡ROSCO COMPLETO!</div>
+        <div className="bote-win-title">¡BOTE!</div>
+        <div className="bote-win-amt">{fmtEuro(amount)}</div>
+        <div className="bote-win-coins">
+          {Array.from({ length: 12 }).map((_, i) => <i key={i} style={{ ['--i' as string]: i }} />)}
+        </div>
+        <p className="bote-win-txt">Has completado las 25 letras.<br />¡Te llevas el bote del programa!</p>
+        <button className="btn-blue" onClick={onContinue}>CONTINUAR</button>
+      </div>
+    </div>
+  )
+}
+
 /**
- * PROGRAMA TV / Partida completa: "lista de pruebas" (ref 09) — 5 pruebas unlocked in order.
- * Each prueba earns seconds that are added to the starting time of El Rosco.
+ * PROGRAMA TV / Partida completa / NUEVO PROGRAMA — lista de pruebas with jackpot.
+ * Every finished programa grows the bote by +6.000 € for the next show, unless the
+ * player completes El Rosco with 25 aciertos and takes the current bote (then reset).
  */
 export function ProgramaFlow({ onExit, onFinish, debugTime, demo = 0 }: { onExit: () => void; onFinish: (total: number, results: GameResult[]) => void; debugTime?: number; demo?: number }) {
   const p = useProfile()
-  // `demo` pre-fills N finished pruebas (only used for screenshots via ?s=lista&demo=N)
   const [results, setResults] = useState<GameResult[]>(() => PRUEBAS.slice(0, demo).map((t, i) => ({
-    mode: t.id === 'rosco' ? 'tv' : t.id, title: t.label, timeUsed: 40, hits: [4, 8, 9, 7, 14, 18][i], fails: 1, score: 50, items: [], shareText: ''
+    mode: t.id === 'rosco' ? 'tv' : t.id, title: t.label, timeUsed: 40, hits: [4, 8, 9, 7, 14, demo >= 6 ? 25 : 18][i], fails: 1, score: 50, items: [], shareText: ''
   })))
   const [secs, setSecs] = useState<number[]>(() => [21, 49, 30, 26, 28, 12].slice(0, demo))
   const [playing, setPlaying] = useState(false)
   const [confirm, setConfirm] = useState(false)
+  const [outcome, setOutcome] = useState<ProgramaOutcome | null>(null)
+  const [showWin, setShowWin] = useState(false)
+  const [boteAtStart] = useState(p.bote)
+  const [progAtStart] = useState(p.programNumber)
   const [data] = useState(() => ({ silla: sillaSession(8), udc: udcSession(10), sopa: sopaSession(8), donde: dondeBoards(6), alaz: randomAlaz(), rosco: randomRosco() }))
   const stage = results.length
   const earned = secs.filter((_, i) => PRUEBAS[i].id !== 'rosco').reduce((s, x) => s + x, 0)
   const roscoTime = debugTime ?? ROSCO_BASE + earned
   const finished = stage >= PRUEBAS.length
 
-  useEffect(() => { setBgPlain(!playing); return () => setBgPlain(false) }, [playing])
+  useEffect(() => { setBgPlain(!playing && !showWin); return () => setBgPlain(false) }, [playing, showWin])
+
+  // Settle the jackpot exactly once when the chain finishes
+  useEffect(() => {
+    if (!finished || outcome) return
+    const rosco = results[results.length - 1]
+    const o = store.finishPrograma(rosco?.hits ?? 0)
+    setOutcome(o)
+    if (o.won) setShowWin(true)
+  }, [finished, outcome, results])
 
   const done = (total?: number) => (r: GameResult) => {
     setResults([...results, r])
     setSecs([...secs, PRUEBAS[stage].id === 'rosco' ? Math.max(0, Math.round(roscoTime - r.timeUsed)) : secondsEarned(r, total)])
     setPlaying(false)
+  }
+
+  if (showWin && outcome) {
+    return <BoteWin amount={outcome.amount} onContinue={() => setShowWin(false)} />
   }
 
   if (playing) {
@@ -85,7 +120,7 @@ export function ProgramaFlow({ onExit, onFinish, debugTime, demo = 0 }: { onExit
       case 'udc': return <UnaDeCuatro questions={data.udc} time={60} onExit={onExit} onDone={done(60)} continueLabel={label} />
       case 'sopa': return <Sopa puzzles={data.sopa} time={90} onExit={onExit} onDone={done(90)} continueLabel={label} />
       case 'donde': return <Donde boards={data.donde} time={90} onExit={onExit} onDone={done(90)} continueLabel={label} />
-      case 'alaz': return <Alaz bank={data.alaz} time={90} onExit={onExit} onDone={done(90)} continueLabel={label} />
+      case 'alaz': return <Alaz bank={data.alaz} time={90} onExit={onExit} onDone={done(90)} continueLabel={label} earnedSeconds={earned} />
       case 'rosco': return <Rosco players={[{ name: p.name, bank: data.rosco }]} mode="tv" time={roscoTime} onExit={onExit} onDone={done()} continueLabel={label} title="EL ROSCO COMPLETADO" />
     }
   }
@@ -96,6 +131,7 @@ export function ProgramaFlow({ onExit, onFinish, debugTime, demo = 0 }: { onExit
     <div className="screen lista">
       <div className="lista-top">
         <button className="home-btn" onClick={() => (stage > 0 && !finished ? setConfirm(true) : onExit())} aria-label="Inicio"><Home size="54%" /></button>
+        <BotePill amount={finished && outcome ? outcome.nextBote : boteAtStart} program={progAtStart} />
       </div>
       <div className={`lista-col ${finished ? 'fin' : ''}`}>
         {PRUEBAS.map((t, i) => {
@@ -115,8 +151,13 @@ export function ProgramaFlow({ onExit, onFinish, debugTime, demo = 0 }: { onExit
             </div>
           )
         })}
-        {finished && (
+        {finished && outcome && (
           <div className="lista-final">
+            {outcome.won ? (
+              <div className="lf-row win"><span>¡BOTE GANADO!</span><b>{fmtEuro(outcome.amount)}</b></div>
+            ) : (
+              <div className="lf-row small"><span>Próximo bote</span><b>{fmtEuro(outcome.nextBote)}</b></div>
+            )}
             <div className="lf-row"><span>PUNTUACIÓN TOTAL</span><b>{total}</b></div>
             <div className="lf-row small"><span>ACIERTOS</span><b>{totalHits}</b></div>
             <button className="btn-blue" onClick={() => onFinish(total, results)}>TERMINAR</button>

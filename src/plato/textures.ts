@@ -102,23 +102,57 @@ function scatterLetters(g: CanvasRenderingContext2D, w: number, h: number, n: nu
   g.globalAlpha = 1
 }
 
+/** Soft letter "sphere" (cluster of white letters) used behind the rotating logo on the main LED. */
+function letterSphere(g: CanvasRenderingContext2D, cx: number, cy: number, R: number, seed: number) {
+  const r = rnd(seed)
+  // soft blue glow behind the sphere
+  const glow = g.createRadialGradient(cx, cy, R * 0.1, cx, cy, R * 1.15)
+  glow.addColorStop(0, 'rgba(180,230,255,.55)'); glow.addColorStop(0.45, 'rgba(90,180,255,.22)'); glow.addColorStop(1, 'rgba(40,120,230,0)')
+  g.fillStyle = glow; g.beginPath(); g.arc(cx, cy, R * 1.15, 0, Math.PI * 2); g.fill()
+  // denser letters near the rim, fewer in the centre — reads as a translucent sphere
+  for (let i = 0; i < 220; i++) {
+    const a = r() * Math.PI * 2
+    const rad = Math.pow(r(), 0.55) * R
+    const x = cx + Math.cos(a) * rad
+    const y = cy + Math.sin(a) * rad * 0.92
+    const depth = 1 - rad / R
+    const size = 18 + depth * 55 + r() * 30
+    g.globalAlpha = 0.25 + depth * 0.7
+    g.font = f(BOLD, size)
+    g.fillStyle = '#ffffff'
+    g.textAlign = 'center'; g.textBaseline = 'middle'
+    g.fillText(LETTERS[Math.floor(r() * LETTERS.length)], x, y)
+  }
+  g.globalAlpha = 1
+}
+
+/**
+ * Main LED backdrop (refs 13–14): blue field + floating letters + central letter sphere.
+ * The rotating Pasapalabra logo is a separate mesh drawn in front — keep this texture static.
+ */
 export function ledWallTexture() {
   const W = 2048, H = 1024
   const [c, g] = canvas(W, H)
-  const bg = g.createLinearGradient(0, 0, W, H)
-  bg.addColorStop(0, '#5fc4ff'); bg.addColorStop(0.5, '#2a8ff2'); bg.addColorStop(1, '#1a6fe0')
+  const bg = g.createLinearGradient(0, 0, 0, H)
+  bg.addColorStop(0, '#6ec8ff'); bg.addColorStop(0.45, '#2f96f5'); bg.addColorStop(1, '#1768d8')
   g.fillStyle = bg; g.fillRect(0, 0, W, H)
-  concentric(g, W * 0.52, H * 0.56, W * 0.6, '#2c8ef0', '#64c0ff', 46)
-  scatterLetters(g, W, H, 70, 3, '#ffffff', 40, 130)
-  g.font = f(BOLD, 190); g.fillStyle = '#ffffff'; g.globalAlpha = 0.95
-  g.fillText('H', W * 0.87, H * 0.33); g.fillText('Z', W * 0.27, H * 0.78); g.fillText('D', W * 0.9, H * 0.82)
+  // soft bokeh circles
+  const rr = rnd(9)
+  for (let i = 0; i < 18; i++) {
+    const x = rr() * W, y = rr() * H, rad = 40 + rr() * 160
+    const bo = g.createRadialGradient(x, y, 0, x, y, rad)
+    bo.addColorStop(0, `rgba(200,240,255,${0.08 + rr() * 0.12})`); bo.addColorStop(1, 'rgba(200,240,255,0)')
+    g.fillStyle = bo; g.beginPath(); g.arc(x, y, rad, 0, Math.PI * 2); g.fill()
+  }
+  concentric(g, W * 0.5, H * 0.55, W * 0.7, '#2488ef', '#6ec4ff', 52)
+  scatterLetters(g, W, H, 90, 3, '#ffffff', 28, 110)
+  letterSphere(g, W * 0.5, H * 0.55, Math.min(W, H) * 0.38, 17)
+  // a few oversized floating letters at the edges
+  g.font = f(BOLD, 200); g.fillStyle = '#ffffff'; g.globalAlpha = 0.55; g.textAlign = 'center'
+  g.fillText('H', W * 0.9, H * 0.28); g.fillText('Z', W * 0.12, H * 0.78); g.fillText('Ñ', W * 0.88, H * 0.82)
   g.globalAlpha = 1
-  g.font = f(LOGO_FONT, 120); g.textAlign = 'left'; g.fillStyle = '#ffffff'
-  g.shadowColor = 'rgba(0,40,140,.5)'; g.shadowBlur = 16
-  g.fillText('pasapalabra', W * 0.16, H * 0.2)
-  g.shadowBlur = 0
   // LED pixel grid
-  g.fillStyle = 'rgba(0,30,90,.12)'
+  g.fillStyle = 'rgba(0,30,90,.10)'
   for (let x = 0; x < W; x += 8) g.fillRect(x, 0, 2, H)
   return tex(c)
 }

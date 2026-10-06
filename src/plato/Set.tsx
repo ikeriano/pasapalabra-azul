@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import * as T from './textures'
+import { asset } from '../asset'
 
 const D2R = Math.PI / 180
 const add = THREE.AdditiveBlending
@@ -137,8 +138,45 @@ function Screen({ map, position, rotY = 0, size, halo = '#5fb8ff' }: { map: THRE
   )
 }
 
+/**
+ * Main curved LED (refs 13–14): blue letter-sphere backdrop + the menu Pasapalabra logo
+ * rotating slowly forever so the wall looks alive. Side monitors stay as mode/label panels.
+ */
+function MainLedScreen() {
+  const bg = useMemo(() => T.ledWallTexture(), [])
+  const logo = useMemo(() => {
+    const t = new THREE.TextureLoader().load(asset('logo-pasapalabra.png'))
+    t.colorSpace = THREE.SRGBColorSpace
+    t.anisotropy = 4
+    return t
+  }, [])
+  const spin = useRef<THREE.Group>(null)
+  useFrame((_, dt) => {
+    if (spin.current) spin.current.rotation.z -= dt * 0.12 // ~1 turn / 52 s
+  })
+  // logo PNG is 663×417 — keep aspect; sized to dominate the centre of the 10.4×5.4 wall
+  const lw = 7.2, lh = lw * (417 / 663)
+  return (
+    <group position={[-3.6, 3.05, -10.6]} rotation={[0, 0.1, 0]}>
+      <mesh position={[0, 0, -0.06]}><boxGeometry args={[10.58, 5.58, 0.1]} /><meshLambertMaterial color="#0b1430" /></mesh>
+      <mesh><planeGeometry args={[10.4, 5.4]} /><meshBasicMaterial map={bg} toneMapped={false} /></mesh>
+      <group ref={spin} position={[0.15, 0.05, 0.04]}>
+        <mesh>
+          <planeGeometry args={[lw, lh]} />
+          <meshBasicMaterial map={logo} transparent depthWrite={false} toneMapped={false} />
+        </mesh>
+        {/* soft glow behind the spinning logo */}
+        <mesh position={[0, 0, -0.01]} scale={[1.15, 1.15, 1]}>
+          <planeGeometry args={[lw, lh]} />
+          <meshBasicMaterial color="#9fd8ff" transparent opacity={0.18} blending={add} depthWrite={false} />
+        </mesh>
+      </group>
+      <mesh position={[0, 0, -0.12]}><planeGeometry args={[10.4 * 1.35, 5.4 * 1.3]} /><meshBasicMaterial color="#5fb8ff" transparent opacity={0.16} blending={add} depthWrite={false} /></mesh>
+    </group>
+  )
+}
+
 function Walls() {
-  const wall = useMemo(() => T.ledWallTexture(), [])
   const sideA = useMemo(() => T.sidePanelTexture(21), [])
   const sideB = useMemo(() => T.sidePanelTexture(42), [])
   const oranges = useMemo(() => [T.orangePanelTexture('H', 1), T.orangePanelTexture('H', 2), T.orangePanelTexture('D', 3)], [])
@@ -153,8 +191,8 @@ function Walls() {
       <mesh position={[0, 6.2, 0]}><cylinderGeometry args={[16.6, 16.6, 1.6, 64, 1, true, 150 * D2R, 230 * D2R]} /><meshBasicMaterial map={cyan} side={THREE.BackSide} transparent opacity={0.85} toneMapped={false} /></mesh>
       {/* top LED band 'pasapalabra' */}
       <mesh position={[0, 7.6, 0]}><cylinderGeometry args={[14.6, 14.6, 1.7, 96, 1, true, 130 * D2R, 250 * D2R]} /><meshBasicMaterial map={band} side={THREE.BackSide} toneMapped={false} /></mesh>
-      {/* main video wall + side panels */}
-      <Screen map={wall} position={[-3.6, 3.05, -10.6]} rotY={0.1} size={[10.4, 5.4]} />
+      {/* main video wall (rotating logo) + side panels */}
+      <MainLedScreen />
       <Screen map={sideA} position={[-10.0, 3.05, -9.3]} rotY={0.55} size={[1.8, 5.4]} />
       <Screen map={sideB} position={[-12.0, 3.05, -7.6]} rotY={0.75} size={[1.8, 5.4]} />
       <Screen map={sideA} position={[-14.0, 3.05, -4.8]} rotY={1.05} size={[2.2, 5.4]} />
