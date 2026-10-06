@@ -314,6 +314,16 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
   useEffect(() => { const t = setTimeout(() => setHint(false), 6000); return () => clearTimeout(t) }, [])
   useEffect(() => { setActiveSetId(setId) }, [setId])
   useEffect(() => {
+    const w = window as unknown as {
+      __openTravel?: () => void
+      __setPlatoSet?: (id: string) => void
+      __platoPortal?: { x: number; z: number }
+    }
+    w.__openTravel = () => { travelDismissed.current = false; setShowTravel(true) }
+    w.__platoPortal = { x: SETS[setId].portal.x, z: SETS[setId].portal.z }
+    return () => { delete w.__openTravel }
+  })
+  useEffect(() => {
     if (!portalNear) { travelDismissed.current = false; return }
     if (portalNear && !showTravel && !gameOpen && !travelDismissed.current) {
       setShowTravel(true)
