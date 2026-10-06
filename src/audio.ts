@@ -1,8 +1,8 @@
 import { asset } from './asset'
 /**
  * Audio rules (user requirement):
- *  - ACIERTO sound (sfx-a.mp3) plays ONLY from playAcierto(), called ONLY when an answer is evaluated correct.
- *  - FALLO sound (sfx-b.mp3) plays ONLY from playFallo(), called ONLY when an answer is evaluated wrong.
+ *  - ACIERTO sound (sfx-b.mp3) plays ONLY from playAcierto(), called ONLY when an answer is evaluated correct.
+ *  - FALLO sound (sfx-a.mp3) plays ONLY from playFallo(), called ONLY when an answer is evaluated wrong.
  *  - PASAPALABRA plays NO sound. Nothing is ever played randomly.
  *  - Nothing starts before the first user gesture (autoplay policy).
  */
@@ -13,7 +13,7 @@ const MUSIC: Record<Exclude<Scene, 'none'>, { src: string; vol: number }> = {
   menu: { src: asset('audio/track-large-13mb.mp3'), vol: 0.35 },
   game: { src: asset('audio/track-medium.mp3'), vol: 0.3 }
 }
-const SFX = { ok: asset('audio/sfx-a.mp3'), bad: asset('audio/sfx-b.mp3') }
+const SFX = { ok: asset('audio/sfx-b.mp3'), bad: asset('audio/sfx-a.mp3') }
 
 class AudioManager {
   private unlocked = false
