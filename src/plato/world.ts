@@ -91,7 +91,7 @@ export const SETS: Record<SetId, SetDef> = {
   rueda: {
     id: 'rueda', label: 'Rueda la letra', short: 'RL',
     spawn: { x: 0, z: 8, yaw: 0 },
-    portal: { x: 6.5, z: 8.5, yaw: -0.5 },
+    portal: { x: 9.5, z: -2, yaw: -0.8 },  // rueda
     fog: '#071233', bg: '#050a1e',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 18, 1], look: [0, 0, 0], accent: '#ff8a2a' },
@@ -109,7 +109,7 @@ export const SETS: Record<SetId, SetDef> = {
   ahora: {
     id: 'ahora', label: 'Ahora Caigo', short: 'AC',
     spawn: { x: 0, z: 8.2, yaw: 0 },
-    portal: { x: 0, z: 10.8, yaw: 3.14 },
+    portal: { x: 10.5, z: 2.5, yaw: -1.2 },  // ahora side
     fog: '#06103a', bg: '#04081c',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 18, 1], look: [0, 0, 0], accent: '#ffcc00' },
@@ -135,7 +135,7 @@ export const SETS: Record<SetId, SetDef> = {
   cocina: {
     id: 'cocina', label: 'Cocina', short: 'CO',
     spawn: { x: 0, z: 5.5, yaw: 0 },
-    portal: { x: 0, z: 7.2, yaw: 3.14 },
+    portal: { x: 6.5, z: -4.5, yaw: -0.3 },  // cocina back-right
     fog: '#1a2030', bg: '#12161e',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 12, 1], look: [0, 0, 0], accent: '#1a6adf' },
@@ -160,7 +160,7 @@ export const SETS: Record<SetId, SetDef> = {
   abismo: {
     id: 'abismo', label: 'Acierta o el Abismo', short: 'AA',
     spawn: { x: 0, z: 7.5, yaw: 0 },
-    portal: { x: 0, z: 10, yaw: 3.14 },
+    portal: { x: 10, z: 2, yaw: -1.1 },  // abismo
     fog: '#071440', bg: '#050c28',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 16, 1], look: [0, 0, 0], accent: '#ffcc00' },
@@ -178,7 +178,7 @@ export const SETS: Record<SetId, SetDef> = {
   boom: {
     id: 'boom', label: 'Boom', short: 'BO',
     spawn: { x: 0, z: 7, yaw: 0 },
-    portal: { x: 0, z: 9.5, yaw: 3.14 },
+    portal: { x: -9.5, z: 2, yaw: 1.0 },  // boom
     fog: '#1a0804', bg: '#0c0402',
     planos: [
       { id: 'aereo', label: 'Aéreo', pos: [0, 16, 1], look: [0, 0, 0], accent: '#ff6a1a' },
