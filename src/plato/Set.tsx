@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import * as T from './textures'
-import { asset } from '../asset'
+import { useFocos, type FocoGroupId } from './focos'
 
 const D2R = Math.PI / 180
 const add = THREE.AdditiveBlending
@@ -139,39 +139,96 @@ function Screen({ map, position, rotY = 0, size, halo = '#5fb8ff' }: { map: THRE
 }
 
 /**
- * Main curved LED (refs 13–14): blue letter-sphere backdrop + the menu Pasapalabra logo
- * rotating slowly forever so the wall looks alive. Side monitors stay as mode/label panels.
+ * Main curved LED (refs 13–15 / video 15):
+ *  - blue studio backdrop (static)
+ *  - 3D globe of white letters that yaws slowly forever (ONLY the sphere rotates)
+ *  - fixed white "Pasapalabra" wordmark in front (never spins)
+ * Do NOT rotate the menu logo PNG as one piece.
  */
 function MainLedScreen() {
   const bg = useMemo(() => T.ledWallTexture(), [])
-  const logo = useMemo(() => {
-    const t = new THREE.TextureLoader().load(asset('logo-pasapalabra.png'))
-    t.colorSpace = THREE.SRGBColorSpace
-    t.anisotropy = 4
-    return t
-  }, [])
-  const spin = useRef<THREE.Group>(null)
-  useFrame((_, dt) => {
-    if (spin.current) spin.current.rotation.z -= dt * 0.12 // ~1 turn / 52 s
-  })
-  // logo PNG is 663×417 — keep aspect; sized to dominate the centre of the 10.4×5.4 wall
-  const lw = 7.2, lh = lw * (417 / 663)
+  const word = useMemo(() => T.pasapalabraWordmarkTexture(), [])
+  const glow = useMemo(() => T.sphereGlowTexture(), [])
+  // Orient letter planes to face outward — done in a child component with lookAt
   return (
     <group position={[-3.6, 3.05, -10.6]} rotation={[0, 0.1, 0]}>
       <mesh position={[0, 0, -0.06]}><boxGeometry args={[10.58, 5.58, 0.1]} /><meshLambertMaterial color="#0b1430" /></mesh>
       <mesh><planeGeometry args={[10.4, 5.4]} /><meshBasicMaterial map={bg} toneMapped={false} /></mesh>
-      <group ref={spin} position={[0.15, 0.05, 0.04]}>
-        <mesh>
-          <planeGeometry args={[lw, lh]} />
-          <meshBasicMaterial map={logo} transparent depthWrite={false} toneMapped={false} />
-        </mesh>
-        {/* soft glow behind the spinning logo */}
-        <mesh position={[0, 0, -0.01]} scale={[1.15, 1.15, 1]}>
-          <planeGeometry args={[lw, lh]} />
-          <meshBasicMaterial color="#9fd8ff" transparent opacity={0.18} blending={add} depthWrite={false} />
-        </mesh>
+      {/* soft glow disc behind the ball */}
+      <sprite position={[0.1, 0.05, 0.02]} scale={[5.2, 5.2, 1]}>
+        <spriteMaterial map={glow} transparent depthWrite={false} blending={add} toneMapped={false} />
+      </sprite>
+      {/* ONLY this sphere yaws */}
+      <group position={[0.1, 0.05, 0.35]}>
+        <LetterGlobeOutward radius={1.95} />
       </group>
+      {/* FIXED wordmark — never rotates */}
+      <mesh position={[0.1, 0.15, 0.72]}>
+        <planeGeometry args={[7.6, 1.9]} />
+        <meshBasicMaterial map={word} transparent depthWrite={false} toneMapped={false} />
+      </mesh>
       <mesh position={[0, 0, -0.12]}><planeGeometry args={[10.4 * 1.35, 5.4 * 1.3]} /><meshBasicMaterial color="#5fb8ff" transparent opacity={0.16} blending={add} depthWrite={false} /></mesh>
+    </group>
+  )
+}
+
+/** Letter globe whose glyph planes face outward from the centre (readable on the front as it yaws). */
+function LetterGlobeOutward({ radius = 1.85 }: { radius?: number }) {
+  const group = useRef<THREE.Group>(null)
+  const letters = useMemo(() => {
+    const out: { ch: string; pos: [number, number, number]; quat: THREE.Quaternion; s: number }[] = []
+    const N = 96
+    const golden = Math.PI * (3 - Math.sqrt(5))
+    const alphabet = 'ABCDEFGHIJLMNÑOPQRSTUVXYZ'
+    const zAxis = new THREE.Vector3(0, 0, 1)
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2
+      const rAtY = Math.sqrt(Math.max(0, 1 - y * y))
+      const theta = golden * i
+      const x = Math.cos(theta) * rAtY
+      const z = Math.sin(theta) * rAtY
+      const pos = new THREE.Vector3(x, y, z).multiplyScalar(radius)
+      const quat = new THREE.Quaternion().setFromUnitVectors(zAxis, pos.clone().normalize())
+      out.push({
+        ch: alphabet[i % alphabet.length],
+        pos: [pos.x, pos.y, pos.z],
+        quat,
+        s: 0.28 + (i % 7) * 0.025
+      })
+    }
+    return out
+  }, [radius])
+  const mats = useMemo(() => {
+    const map = new Map<string, THREE.MeshBasicMaterial>()
+    for (const ch of 'ABCDEFGHIJLMNÑOPQRSTUVXYZ') {
+      const c = document.createElement('canvas'); c.width = 128; c.height = 128
+      const g = c.getContext('2d')!
+      g.clearRect(0, 0, 128, 128)
+      g.font = "900 92px 'Nunito', sans-serif"
+      g.textAlign = 'center'; g.textBaseline = 'middle'
+      g.fillStyle = '#ffffff'
+      g.shadowColor = 'rgba(160,220,255,.95)'; g.shadowBlur = 14
+      g.fillText(ch, 64, 70)
+      const t = new THREE.CanvasTexture(c)
+      t.colorSpace = THREE.SRGBColorSpace
+      map.set(ch, new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false, toneMapped: false, side: THREE.DoubleSide }))
+    }
+    return map
+  }, [])
+  useFrame((_, dt) => {
+    if (group.current) group.current.rotation.y += dt * 0.25 // slow yaw; front moves left→right
+  })
+  return (
+    <group ref={group}>
+      <mesh>
+        <sphereGeometry args={[radius * 0.88, 28, 20]} />
+        <meshBasicMaterial color="#5eb8ff" transparent opacity={0.18} depthWrite={false} />
+      </mesh>
+      {letters.map((L, i) => (
+        <mesh key={i} position={L.pos} quaternion={L.quat} scale={[L.s, L.s, L.s]} material={mats.get(L.ch)!}>
+          <planeGeometry args={[1, 1]} />
+        </mesh>
+      ))}
     </group>
   )
 }
@@ -260,26 +317,65 @@ function Gradas() {
   )
 }
 
-function MovingHead({ position, phase, color = '#cfe6ff' }: { position: [number, number, number]; phase: number; color?: string }) {
+function MovingHead({ position, phase, groupId, aim = 'down' }: {
+  position: [number, number, number]; phase: number; groupId: FocoGroupId; aim?: 'down' | 'up'
+}) {
   const ref = useRef<THREE.Group>(null)
+  const cfg = useFocos()[groupId]
   useFrame(({ clock }) => {
     const t = clock.elapsedTime * 0.4 + phase
     if (ref.current) { ref.current.rotation.z = Math.sin(t) * 0.45; ref.current.rotation.x = Math.cos(t * 0.8) * 0.3 }
   })
+  if (!cfg.on) {
+    return (
+      <group position={position}>
+        <mesh><boxGeometry args={[0.36, 0.3, 0.36]} /><meshLambertMaterial color="#111318" /></mesh>
+        <mesh position={[0, aim === 'up' ? 0.25 : -0.25, 0]}><cylinderGeometry args={[0.14, 0.16, 0.3, 12]} /><meshLambertMaterial color="#1b1e25" /></mesh>
+      </group>
+    )
+  }
+  const op = 0.045 + cfg.intensity * 0.11
+  const coneR = 1.25 * cfg.cone
+  const coneH = 8.4
+  const dir = aim === 'up' ? 1 : -1
   return (
     <group position={position}>
       <mesh><boxGeometry args={[0.36, 0.3, 0.36]} /><meshLambertMaterial color="#111318" /></mesh>
       <group ref={ref}>
-        <mesh position={[0, -0.25, 0]}><cylinderGeometry args={[0.14, 0.16, 0.3, 12]} /><meshLambertMaterial color="#1b1e25" /></mesh>
-        <mesh position={[0, -0.41, 0]} rotation={[Math.PI / 2, 0, 0]}><circleGeometry args={[0.12, 16]} /><meshBasicMaterial color="#ffffff" /></mesh>
-        <mesh position={[0, -4.6, 0]}><coneGeometry args={[1.25, 8.4, 20, 1, true]} /><meshBasicMaterial color={color} transparent opacity={0.07} blending={add} depthWrite={false} side={THREE.DoubleSide} /></mesh>
+        <mesh position={[0, dir * 0.25, 0]}><cylinderGeometry args={[0.14, 0.16, 0.3, 12]} /><meshLambertMaterial color="#1b1e25" /></mesh>
+        <mesh position={[0, dir * 0.41, 0]} rotation={[Math.PI / 2, 0, 0]}><circleGeometry args={[0.12, 16]} /><meshBasicMaterial color={cfg.color} toneMapped={false} /></mesh>
+        <mesh position={[0, dir * (coneH / 2 + 0.4), 0]}>
+          <coneGeometry args={[coneR, coneH, 18, 1, true]} />
+          <meshBasicMaterial color={cfg.color} transparent opacity={op} blending={add} depthWrite={false} side={THREE.DoubleSide} />
+        </mesh>
       </group>
+    </group>
+  )
+}
+
+function FloorUplight({ position, phase, groupId }: { position: [number, number, number]; phase: number; groupId: FocoGroupId }) {
+  const cfg = useFocos()[groupId]
+  if (!cfg.on) {
+    return (
+      <group position={position}>
+        <mesh position={[0, 0.08, 0]}><cylinderGeometry args={[0.22, 0.28, 0.16, 12]} /><meshLambertMaterial color="#1a1e28" /></mesh>
+      </group>
+    )
+  }
+  const op = 0.05 + cfg.intensity * 0.12
+  return (
+    <group position={position}>
+      <mesh position={[0, 0.08, 0]}><cylinderGeometry args={[0.22, 0.28, 0.16, 12]} /><meshLambertMaterial color="#1a1e28" /></mesh>
+      <mesh position={[0, 0.16, 0]} rotation={[-Math.PI / 2, 0, 0]}><circleGeometry args={[0.16, 16]} /><meshBasicMaterial color={cfg.color} toneMapped={false} /></mesh>
+      <mesh position={[0, 3.2, 0]}><coneGeometry args={[1.1 * cfg.cone, 6.2, 16, 1, true]} /><meshBasicMaterial color={cfg.color} transparent opacity={op} blending={add} depthWrite={false} side={THREE.DoubleSide} /></mesh>
+      <Glow position={[0, 0.3, 0]} scale={0.9 + cfg.intensity * 0.5} color={cfg.color} opacity={0.35 + cfg.intensity * 0.4} />
     </group>
   )
 }
 
 function Truss() {
   const mat = <meshLambertMaterial color="#2a2f3a" />
+  const side = useFocos().side
   const bars: [number, number, number, number, number, number][] = [
     [0, 10.6, -7, 28, 0.35, 0.35], [0, 10.6, 0, 28, 0.35, 0.35], [0, 10.6, 7, 28, 0.35, 0.35],
     [-8, 10.6, 0, 0.35, 0.35, 16], [8, 10.6, 0, 0.35, 0.35, 16]
@@ -288,16 +384,24 @@ function Truss() {
     <group>
       <mesh position={[0, 12, 0]} rotation={[Math.PI / 2, 0, 0]}><circleGeometry args={[17.5, 32]} /><meshBasicMaterial color="#05070f" side={THREE.DoubleSide} /></mesh>
       {bars.map(([x, y, z, w, h, d], i) => <mesh key={i} position={[x, y, z]}><boxGeometry args={[w, h, d]} />{mat}</mesh>)}
-      {[-10, -5, 0, 5, 10].map((x, i) => <MovingHead key={'a' + i} position={[x, 10.25, -7]} phase={i * 1.3} />)}
-      {[-6, 2, 9].map((x, i) => <MovingHead key={'b' + i} position={[x, 10.25, 0]} phase={i * 2.1 + 0.5} color="#9fd0ff" />)}
-      {/* balcony moving heads (visible on the right in the photos) */}
-      {[50, 72, 94, 116, 138].map((deg, i) => <MovingHead key={'c' + i} position={[Math.sin(deg * D2R) * 13.8, 4.65, Math.cos(deg * D2R) * 13.8]} phase={i} />)}
-      {/* spotlight cans */}
+      {/* front row (toward LED wall) */}
+      {[-10, -5, 0, 5, 10].map((x, i) => <MovingHead key={'a' + i} position={[x, 10.25, -7]} phase={i * 1.3} groupId="front" />)}
+      {/* centre / back row */}
+      {[-6, 2, 9].map((x, i) => <MovingHead key={'b' + i} position={[x, 10.25, 0]} phase={i * 2.1 + 0.5} groupId="back" />)}
+      {/* side truss */}
+      {[-10, 10].map((x, i) => <MovingHead key={'d' + i} position={[x, 10.25, 4]} phase={i * 1.7} groupId="side" />)}
+      {/* balcony moving heads */}
+      {[50, 72, 94, 116, 138].map((deg, i) => <MovingHead key={'c' + i} position={[Math.sin(deg * D2R) * 13.8, 4.65, Math.cos(deg * D2R) * 13.8]} phase={i} groupId="balcony" />)}
+      {/* spotlight cans on rear truss */}
       {[-12, -8, -3, 3, 8, 12].map((x, i) => (
         <group key={'s' + i} position={[x, 10.3, 7]}>
           <mesh><cylinderGeometry args={[0.18, 0.22, 0.4, 10]} /><meshLambertMaterial color="#14161c" /></mesh>
-          <Glow position={[0, -0.25, 0]} scale={0.7} color="#ffffff" opacity={0.8} />
+          {side.on && <Glow position={[0, -0.25, 0]} scale={0.5 + side.intensity * 0.5} color={side.color} opacity={0.5 + side.intensity * 0.4} />}
         </group>
+      ))}
+      {/* floor uplights around the platform */}
+      {[0, 60, 120, 180, 240, 300].map((deg, i) => (
+        <FloorUplight key={'u' + i} position={[Math.sin(deg * D2R) * 6.4, 0, Math.cos(deg * D2R) * 6.4]} phase={i} groupId="accent" />
       ))}
     </group>
   )

@@ -144,16 +144,41 @@ export function ledWallTexture() {
     bo.addColorStop(0, `rgba(200,240,255,${0.08 + rr() * 0.12})`); bo.addColorStop(1, 'rgba(200,240,255,0)')
     g.fillStyle = bo; g.beginPath(); g.arc(x, y, rad, 0, Math.PI * 2); g.fill()
   }
-  concentric(g, W * 0.5, H * 0.55, W * 0.7, '#2488ef', '#6ec4ff', 52)
-  scatterLetters(g, W, H, 90, 3, '#ffffff', 28, 110)
-  letterSphere(g, W * 0.5, H * 0.55, Math.min(W, H) * 0.38, 17)
-  // a few oversized floating letters at the edges
-  g.font = f(BOLD, 200); g.fillStyle = '#ffffff'; g.globalAlpha = 0.55; g.textAlign = 'center'
-  g.fillText('H', W * 0.9, H * 0.28); g.fillText('Z', W * 0.12, H * 0.78); g.fillText('Ñ', W * 0.88, H * 0.82)
+  concentric(g, W * 0.5, H * 0.55, W * 0.75, '#2488ef', '#6ec4ff', 52)
+  // soft scattered letters only at the edges — the rotating sphere is a separate 3D mesh
+  scatterLetters(g, W, H, 55, 3, '#ffffff', 24, 90)
+  g.font = f(BOLD, 180); g.fillStyle = '#ffffff'; g.globalAlpha = 0.4; g.textAlign = 'center'
+  g.fillText('H', W * 0.92, H * 0.22); g.fillText('Z', W * 0.08, H * 0.82); g.fillText('Ñ', W * 0.9, H * 0.85)
   g.globalAlpha = 1
   // LED pixel grid
   g.fillStyle = 'rgba(0,30,90,.10)'
   for (let x = 0; x < W; x += 8) g.fillRect(x, 0, 2, H)
+  return tex(c)
+}
+
+/** Fixed white 'Pasapalabra' wordmark for the main LED (never rotates). */
+export function pasapalabraWordmarkTexture() {
+  const W = 2048, H = 512
+  const [c, g] = canvas(W, H)
+  g.clearRect(0, 0, W, H)
+  g.font = f(LOGO_FONT, 220)
+  g.textAlign = 'center'; g.textBaseline = 'middle'
+  g.shadowColor = 'rgba(0,40,140,.55)'; g.shadowBlur = 28
+  g.fillStyle = '#ffffff'
+  g.fillText('Pasapalabra', W / 2, H / 2 + 10)
+  g.shadowBlur = 0
+  return tex(c)
+}
+
+/** Soft cyan glow disc behind the letter sphere. */
+export function sphereGlowTexture() {
+  const N = 512
+  const [c, g] = canvas(N, N)
+  const gr = g.createRadialGradient(N / 2, N / 2, 0, N / 2, N / 2, N / 2)
+  gr.addColorStop(0, 'rgba(180,230,255,.55)')
+  gr.addColorStop(0.45, 'rgba(90,180,255,.22)')
+  gr.addColorStop(1, 'rgba(40,120,230,0)')
+  g.fillStyle = gr; g.fillRect(0, 0, N, N)
   return tex(c)
 }
 

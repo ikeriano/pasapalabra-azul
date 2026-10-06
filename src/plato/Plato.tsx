@@ -10,6 +10,8 @@ import { Joystick, LookPad, type InputState } from './controls'
 import { Background } from '../components/Background'
 import { BackTri } from '../components/Icons'
 import { BotePill } from '../components/BotePill'
+import { FocosPanel } from './FocosPanel'
+import { useFocos } from './focos'
 import { Rosco } from '../screens/Rosco'
 import { Silla } from '../screens/Silla'
 import { UnaDeCuatro } from '../screens/UnaDeCuatro'
@@ -133,11 +135,24 @@ function HotspotLabel({ h, near }: { h: (typeof HOTSPOTS)[number]; near: boolean
 }
 
 function Lights() {
+  const f = useFocos()
+  // Few real lights only (tablet-friendly); beams are emissive cones on the fixtures.
   return (
     <>
-      <ambientLight intensity={0.55} color="#bcd4ff" />
-      <hemisphereLight args={['#a9d2ff', '#10225e', 0.9]} />
-      <directionalLight position={[4, 12, 8]} intensity={1.2} color="#ffffff" />
+      <ambientLight intensity={0.45} color="#bcd4ff" />
+      <hemisphereLight args={['#a9d2ff', '#10225e', 0.75]} />
+      <directionalLight position={[4, 12, 8]} intensity={0.85} color="#ffffff" />
+      {f.front.on && (
+        <spotLight position={[0, 10.2, -5]} angle={0.5 * f.front.cone} penumbra={0.55}
+          intensity={f.front.intensity * 16} color={f.front.color} distance={26} decay={2} />
+      )}
+      {f.accent.on && (
+        <spotLight position={[-3.5, 8.5, 3]} angle={0.42 * f.accent.cone} penumbra={0.6}
+          intensity={f.accent.intensity * 10} color={f.accent.color} distance={20} decay={2} />
+      )}
+      {f.balcony.on && (
+        <pointLight position={[9.5, 4.8, 3.5]} intensity={f.balcony.intensity * 5} color={f.balcony.color} distance={14} decay={2} />
+      )}
     </>
   )
 }
@@ -157,6 +172,7 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
   const [near, setNear] = useState<HotId | null>(null)
   const [game, setGame] = useState<Game>(null)
   const [hint, setHint] = useState(true)
+  const [showFocos, setShowFocos] = useState(false)
   const input = useRef<InputState>({ joyX: 0, joyY: 0, lookDX: 0, lookDY: 0, keys: new Set() })
   const gameOpen = game !== null
   const hasGL = useMemo(() => webglAvailable(), [])
@@ -258,6 +274,7 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
           </button>
           <BotePill amount={p.bote} program={p.programNumber} className="plato-bote" />
           <button className="plato-full" onClick={() => open('full')}>NUEVO PROGRAMA</button>
+          <button className="plato-focos-btn" onClick={() => setShowFocos(true)}>FOCOS</button>
           {near && (
             <button className="plato-action" onClick={() => open(near)}>
               <span>{ACTION[near]}</span>
@@ -266,6 +283,7 @@ export default function Plato({ onExit, onRecord }: { onExit: () => void; onReco
           {hint && !near && <div className="plato-hint">Mueve el joystick para andar · arrastra a la derecha para mirar</div>}
         </div>
       )}
+      {showFocos && <FocosPanel onClose={() => setShowFocos(false)} />}
       {overlay && (
         <div className="plato-overlay">
           <Background />
