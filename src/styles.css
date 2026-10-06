@@ -388,7 +388,7 @@ img { -webkit-user-drag: none; }
 .plato-hud { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
 .plato-hud > * { pointer-events: auto; }
 .lookpad { position: absolute; inset: 0; touch-action: none; }
-.joy { position: absolute; left: calc(env(safe-area-inset-left) + 22px); bottom: calc(env(safe-area-inset-bottom) + 22px); width: min(38vmin, 170px); height: min(38vmin, 170px); touch-action: none; }
+.joy { position: absolute; left: calc(env(safe-area-inset-left) + 22px); bottom: calc(env(safe-area-inset-bottom) + 88px); width: min(38vmin, 170px); height: min(38vmin, 170px); touch-action: none; }
 .joy-ring { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.08), rgba(120,190,255,.22)); border: 3px solid rgba(255,255,255,.7); box-shadow: 0 0 18px rgba(120,200,255,.5), inset 0 0 20px rgba(120,200,255,.3); }
 .joy-knob { position: absolute; left: 50%; top: 50%; width: 44%; height: 44%; border-radius: 50%; background: radial-gradient(circle at 50% 28%, #ffffff, #cfe6ff 60%, #8fc4f6); box-shadow: 0 4px 10px rgba(0,20,80,.5); pointer-events: none; }
 .plato-back { position: absolute; left: calc(env(safe-area-inset-left) + 16px); top: calc(env(safe-area-inset-top) + 14px); --u: 4.6px; }
@@ -635,3 +635,94 @@ img { -webkit-user-drag: none; }
 .focos-slider input[type=range] { width: 100%; accent-color: #3a9dff; }
 .focos-reset { margin-top: 14px; width: 100%; padding: 12px; border-radius: 99px; font-weight: 900; background: rgba(255,255,255,.1); color: #fff; }
 .btn-ghost { background: rgba(255,255,255,.12); color: #fff; border-radius: 99px; font-weight: 900; padding: 12px 20px; }
+
+
+/* Jump + camera mode (plató avatar) */
+.plato-jump {
+  position: absolute;
+  right: calc(env(safe-area-inset-right) + 22px);
+  bottom: calc(env(safe-area-inset-bottom) + 92px);
+  width: min(22vmin, 96px);
+  height: min(22vmin, 96px);
+  border-radius: 50%;
+  color: #fff;
+  background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.28), rgba(40,50,70,.55));
+  border: 3px solid rgba(255,255,255,.75);
+  box-shadow: 0 0 16px rgba(120,200,255,.45), inset 0 0 18px rgba(255,255,255,.12);
+  display: grid; place-items: center;
+  touch-action: none;
+  z-index: 5;
+}
+.plato-jump:active { transform: scale(.94); background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.4), rgba(40,50,70,.7)); }
+.plato-cam-btn {
+  position: absolute;
+  right: calc(env(safe-area-inset-right) + 16px);
+  top: calc(env(safe-area-inset-top) + 112px);
+  padding: 9px 14px; border-radius: 99px; font-weight: 900; font-size: 12px; letter-spacing: .04em; color: #fff;
+  background: linear-gradient(180deg, #3a7adf, #1a4a9a); box-shadow: 0 0 0 2px rgba(255,255,255,.2), 0 3px 8px rgba(0,0,0,.35); z-index: 4;
+}
+.plato-cam-btn:active { transform: scale(.96); }
+@media (max-height: 520px) {
+  .plato-jump { width: 72px; height: 72px; }
+  .plato-cam-btn { top: calc(env(safe-area-inset-top) + 100px); font-size: 11px; padding: 8px 12px; }
+}
+
+/* Multi-set: planos, travel, fade */
+.plano-bar {
+  position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 12px);
+  transform: translateX(-50%); display: flex; gap: 8px; padding: 8px;
+  background: rgba(5,12,35,.72); border-radius: 18px; z-index: 5;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 8px 24px rgba(0,0,0,.35);
+  max-width: min(96vw, 520px); overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.plano-thumb {
+  flex: 0 0 auto; width: 64px; height: 64px; border-radius: 14px;
+  background: rgba(255,255,255,.08); color: #fff; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 4px; font-weight: 900; font-size: 10px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.plano-thumb.on { box-shadow: inset 0 0 0 2px #fff, 0 0 0 2px var(--accent, #3a9dff); background: rgba(58,157,255,.25); }
+.plano-thumb.libre.on { box-shadow: inset 0 0 0 2px #fff, 0 0 0 2px #7dffb0; }
+.plano-swatch { width: 28px; height: 18px; border-radius: 6px; }
+.plano-ico { font-size: 18px; line-height: 1; }
+.plano-lbl { letter-spacing: .02em; opacity: .95; }
+.plato-set-pill {
+  position: absolute; left: 50%; top: calc(env(safe-area-inset-top) + 16px); transform: translateX(-50%);
+  padding: 8px 16px; border-radius: 99px; font-weight: 900; font-size: 13px; color: #fff;
+  background: rgba(10,30,70,.75); box-shadow: 0 0 0 2px rgba(255,255,255,.2); z-index: 4; white-space: nowrap;
+}
+.plato-travel-btn { background: linear-gradient(180deg, #5ec8ff, #2a7adf) !important; }
+.plato-fade {
+  position: fixed; inset: 0; z-index: 40; background: #050a1e; animation: platoFade .55s ease;
+  pointer-events: none;
+}
+@keyframes platoFade { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+.travel-panel {
+  position: fixed; inset: 0; z-index: 35; display: grid; place-items: end center;
+  padding: 16px; padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  background: rgba(5,10,30,.55); animation: cardIn .2s ease-out;
+}
+.travel-card {
+  width: min(440px, 96vw); max-height: min(78vh, 640px); overflow: auto;
+  background: linear-gradient(180deg, #1a2748, #0e1730); border-radius: 22px;
+  padding: 18px 16px 16px; color: #fff;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.15), 0 16px 40px rgba(0,0,0,.45);
+}
+.travel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.travel-head h2 { margin: 0; font-size: 20px; font-weight: 900; letter-spacing: .08em; }
+.travel-note { margin: 0 0 12px; font-size: 13px; opacity: .75; font-weight: 700; }
+.travel-grid { display: flex; flex-direction: column; gap: 10px; }
+.travel-item {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 16px;
+  background: rgba(255,255,255,.07); color: #fff; font-weight: 900; font-size: 16px;
+  border: 2px solid transparent; text-align: left;
+}
+.travel-item:disabled { opacity: .55; }
+.travel-item:not(:disabled):active { transform: scale(.98); }
+.travel-dot { width: 14px; height: 14px; border-radius: 50%; flex: 0 0 auto; }
+.travel-name { flex: 1; }
+.travel-here { font-size: 12px; opacity: .7; }
+@media (max-height: 520px) {
+  .plano-bar { bottom: calc(env(safe-area-inset-bottom) + 6px); padding: 6px; gap: 6px; }
+  .plano-thumb { width: 54px; height: 54px; font-size: 9px; }
+}

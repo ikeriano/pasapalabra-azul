@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-export interface InputState { joyX: number; joyY: number; lookDX: number; lookDY: number; keys: Set<string> }
+export interface InputState { joyX: number; joyY: number; lookDX: number; lookDY: number; keys: Set<string>; jump: boolean }
 
 /** Virtual joystick (bottom-left). Pointer events, works with touch, pen and mouse. */
 export function Joystick({ input }: { input: React.MutableRefObject<InputState> }) {
@@ -60,5 +60,25 @@ export function LookPad({ input }: { input: React.MutableRefObject<InputState> }
       onPointerUp={(e) => last.current.delete(e.pointerId)}
       onPointerCancel={(e) => last.current.delete(e.pointerId)}
     />
+  )
+}
+
+
+/** Roblox-style jump button (bottom-right). */
+export function JumpButton({ input }: { input: React.MutableRefObject<InputState> }) {
+  return (
+    <button
+      type="button"
+      className="plato-jump"
+      aria-label="Saltar"
+      onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); input.current.jump = true }}
+      onPointerUp={(e) => { e.preventDefault(); input.current.jump = false }}
+      onPointerCancel={() => { input.current.jump = false }}
+      onPointerLeave={() => { input.current.jump = false }}
+    >
+      <svg viewBox="0 0 24 24" width="42%" height="42%" aria-hidden>
+        <path d="M12 5 L19 14 H14 V19 H10 V14 H5 Z" fill="currentColor" />
+      </svg>
+    </button>
   )
 }
