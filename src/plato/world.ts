@@ -119,15 +119,15 @@ export const SETS: Record<SetId, SetDef> = {
     ],
     floorHeight(x, z) {
       const r = Math.hypot(x, z)
-      if (r < 2.5) return 0.6
+      if (r < 2.5) return 0.72
       if (r < 7.4) return 0.05
       return 0
     },
     collide(x, z, y) {
       ;[x, z] = clampRadius(x, z, 13.2)
-      for (let i = 0; i < 10; i++) {
-        const a = (i / 10) * Math.PI * 2 + Math.PI / 10
-        if (y < 0.5) [x, z] = pushCircle(x, z, Math.sin(a) * 5.0, Math.cos(a) * 5.0, 0.85)
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2 + Math.PI / 8
+        if (y < 0.55) [x, z] = pushCircle(x, z, Math.sin(a) * 5.05, Math.cos(a) * 5.05, 0.9)
       }
       return [x, z]
     }
@@ -148,10 +148,11 @@ export const SETS: Record<SetId, SetDef> = {
       if (x < -7.5) x = -7.5; if (x > 7.5) x = 7.5
       if (z < -6.5) z = -6.5; if (z > 7.5) z = 7.5
       if (y < 1.05) {
-        ;[x, z] = pushBox(x, z, 0, 2.0, 2.35, 0.75)
-        ;[x, z] = pushBox(x, z, 0, -1.3, 1.85, 0.75)
-        ;[x, z] = pushBox(x, z, -5.2, -6, 1.3, 0.6)
-        ;[x, z] = pushBox(x, z, 4.8, -5.8, 0.75, 0.7)
+        ;[x, z] = pushBox(x, z, 0, 2.2, 2.45, 0.78)
+        ;[x, z] = pushBox(x, z, -1.5, -0.6, 1.45, 0.78)
+        ;[x, z] = pushBox(x, z, -3.6, -5.9, 1.9, 0.65)
+        ;[x, z] = pushBox(x, z, 5.0, -5.5, 0.8, 0.7)
+        ;[x, z] = pushBox(x, z, 1.5, -5.7, 2.8, 0.45)
       }
       return [x, z]
     }
